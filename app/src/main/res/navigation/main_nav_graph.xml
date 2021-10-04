@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main_nav_graph"
+    app:startDestination="@id/signInFragment">
+
+    <fragment
+        android:id="@+id/signInFragment"
+        android:name="com.example.smartmoney.ui.auth.signIn.SignInFragment"
+        android:label="fragment_sign_in"
+        tools:layout="@layout/fragment_sign_in">
+        <action
+            app:enterAnim="@anim/slide_from_right"
+            app:exitAnim="@anim/slide_to_left"
+            app:popEnterAnim="@anim/slide_from_left"
+            app:popExitAnim="@anim/slide_to_right"
+            android:id="@+id/action_signInFragment_to_signUpFragment"
+            app:destination="@id/signUpFragment" />
+        <action
+            android:id="@+id/action_signInFragment_to_historyFragment"
+            app:destination="@id/historyFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/signUpFragment"
+        android:name="com.example.smartmoney.ui.auth.signUp.SignUpFragment"
+        android:label="fragment_sign_up"
+        tools:layout="@layout/fragment_sign_up">
+        <action
+            app:popExitAnim="@anim/slide_to_right"
+            app:enterAnim="@anim/slide_from_left"
+            app:exitAnim="@anim/slide_to_right"
+            android:id="@+id/action_signUpFragment_to_signInFragment"
+            app:destination="@id/signInFragment"
+ />
+        <action
+            android:id="@+id/action_signUpFragment_to_historyFragment"
+            app:destination="@id/historyFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/historyFragment"
+        android:name="com.example.smartmoney.ui.history.HistoryFragment"
+        android:label="fragment_history"
+        tools:layout="@layout/fragment_history" />
+</navigation>

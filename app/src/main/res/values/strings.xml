@@ -1,0 +1,17 @@
+<resources>
+    <string name="app_name">Smart Money</string>
+    <string name="sign_in">Sign In</string>
+    <string name="sign_up">Sign Up</string>
+
+    <string name="hint_email">Email</string>
+    <string name="hint_password">Password</string>
+    <string name="hint_to_sign_up">Don\'t have an account yet?</string>
+    <string name="Hey_there">Hey there,</string>
+    <string name="welcome_back">Welcome Back</string>
+    <string name="create_an_account">Let\'s Create an Account</string>
+    <string name="hint_to_sign_in">Already have an account?</string>
+
+    <string name="error_title">Oops! Something goes wrong</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+</resources>

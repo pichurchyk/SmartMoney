@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/historyFragment"
+        android:enabled="true"
+        android:icon="@drawable/ic_history"
+        android:title="" />
+
+    <item
+        android:id="@+id/settingsFragment"
+        android:enabled="true"
+        android:icon="@drawable/ic_settings"
+        android:title="" />
+
+    <item
+        android:id="@+id/manageTransactionFragment"
+        android:enabled="true"
+        android:icon="@drawable/ic_add"
+        android:title="" />
+
+    <item
+        android:id="@+id/staticFragment"
+        android:enabled="true"
+        android:icon="@drawable/ic_graph"
+        android:title="" />
+</menu>
