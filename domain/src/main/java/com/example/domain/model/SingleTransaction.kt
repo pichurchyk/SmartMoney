@@ -1,3 +1,3 @@
 package com.example.domain.model
 
-data class SingleTransaction(var date: String, var total: Double, var isSpent: Boolean)
+data class SingleTransaction(var date: String, var isSpent: Boolean, var total: Double, var description: String)

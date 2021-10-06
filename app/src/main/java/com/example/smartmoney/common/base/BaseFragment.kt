@@ -1,16 +1,18 @@
 package com.example.smartmoney.common.base
 
-import android.annotation.SuppressLint
 import android.view.View
 import androidx.annotation.LayoutRes
 import androidx.annotation.StringRes
+import androidx.appcompat.widget.AppCompatImageButton
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModel
 import androidx.navigation.Navigation
 import com.afollestad.materialdialogs.MaterialDialog
+import com.example.smartmoney.R
 import com.example.smartmoney.common.util.dialogBuilder
 import com.example.smartmoney.common.util.hideKeyboard
 import com.example.smartmoney.common.util.snackbar
+import com.google.android.material.bottomnavigation.BottomNavigationView
 
 abstract class BaseFragment(@LayoutRes layoutId: Int) : Fragment(layoutId) {
     abstract val viewModel: ViewModel
@@ -33,9 +35,29 @@ abstract class BaseFragment(@LayoutRes layoutId: Int) : Fragment(layoutId) {
         Navigation.findNavController(requireView()).navigate(actionId)
     }
 
-
     fun clearFocus() {
         activity?.hideKeyboard(requireView())
         requireView().clearFocus()
+    }
+
+    fun menuVisibility(isVisible: Boolean) {
+        if (isVisible) {
+            requireActivity().findViewById<AppCompatImageButton>(R.id.btnHideMenu).visibility =
+                View.VISIBLE
+            requireActivity().findViewById<BottomNavigationView>(R.id.menu).visibility =
+                View.VISIBLE
+        } else {
+            requireActivity().findViewById<AppCompatImageButton>(R.id.btnHideMenu).visibility =
+                View.GONE
+            requireActivity().findViewById<BottomNavigationView>(R.id.menu).visibility =
+                View.GONE
+        }
+    }
+
+    fun slideMenu(slideUp: Boolean) {
+        val direction = if (slideUp) -100F else 100F
+
+        requireActivity().findViewById<BottomNavigationView>(R.id.menu).animate()
+            .translationY(direction).duration = 200
     }
 }

@@ -4,23 +4,17 @@
         android:id="@+id/historyFragment"
         android:enabled="true"
         android:icon="@drawable/ic_history"
-        android:title="" />
+        android:title="@string/history" />
+
+    <item
+        android:id="@+id/managerFragment"
+        android:enabled="true"
+        android:icon="@drawable/ic_add"
+        android:title="@string/manager" />
 
     <item
         android:id="@+id/settingsFragment"
         android:enabled="true"
         android:icon="@drawable/ic_settings"
-        android:title="" />
-
-    <item
-        android:id="@+id/manageTransactionFragment"
-        android:enabled="true"
-        android:icon="@drawable/ic_add"
-        android:title="" />
-
-    <item
-        android:id="@+id/staticFragment"
-        android:enabled="true"
-        android:icon="@drawable/ic_graph"
-        android:title="" />
+        android:title="@string/settings" />
 </menu>

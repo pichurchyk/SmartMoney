@@ -16,10 +16,12 @@ class HistoryFragment : BaseFragment(R.layout.fragment_history) {
     private val binding by viewBinding(FragmentHistoryBinding::bind)
     override val viewModel by viewModels<HistoryViewModel>()
 
-    private var adapter: HistoryRecyclerAdapter ?= null
+    private var adapter: HistoryRecyclerAdapter? = null
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        menuVisibility(true)
     }
 
     private fun setupRecyclerView() {
