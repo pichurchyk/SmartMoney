@@ -7,13 +7,17 @@ import com.example.data.R
 import javax.inject.Inject
 
 class SharedPreferencesSource @Inject constructor(app: Application) {
-    val res = Resources.getSystem()
+    val res: Resources = Resources.getSystem()
 
-//    private val sharedPref = app.getSharedPreferences(Resources.getSystem().getString(R.string.shared_pref_name), MODE_PRIVATE)
+    private val sharedPref = app.getSharedPreferences("SettingsSharedPref", MODE_PRIVATE)
 
-//    fun setRememberUser(remember: Boolean) {
-//        sharedPref.edit()
-//            .putBoolean(res.getString(R.string.shared_pref_remember_user), remember)
-//            .apply()
-//    }
+    fun setRememberUser(remember: Boolean) {
+        sharedPref.edit()
+            .putBoolean("RememberUser", remember)
+            .apply()
+    }
+    
+    fun getRememberUser() : Boolean {
+        return sharedPref.getBoolean("RememberUser", false)
+    }
 }

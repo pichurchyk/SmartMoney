@@ -7,13 +7,13 @@ import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.setupWithNavController
 import com.example.smartmoney.R
-import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.google.android.material.navigation.NavigationView
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity(R.layout.activity_main) {
 
-    private var menu: BottomNavigationView? = null
+    private var menu: NavigationView? = null
 
     var isMenuVisible: Boolean = true
 
@@ -32,8 +32,7 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
             slideMenu()
             if (!isMenuVisible) {
                 btnHideMenu.setImageResource(R.drawable.ic_hide_active)
-            }
-            else {
+            } else {
                 btnHideMenu.setImageResource(R.drawable.ic_hide)
             }
         }

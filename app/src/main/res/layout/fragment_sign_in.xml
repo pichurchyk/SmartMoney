@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:padding="16dp"
     tools:context=".ui.auth.signIn.SignInFragment">
 
     <LinearLayout
@@ -48,7 +49,7 @@
             android:id="@+id/email"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/bg_input_field"
+            android:background="@drawable/bg_corners"
             android:inputType="textEmailAddress"
             android:maxLines="1"
             android:textColor="@color/black" />
@@ -67,11 +68,24 @@
             android:id="@+id/password"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/bg_input_field"
+            android:background="@drawable/bg_corners"
             android:inputType="textPassword"
             android:maxLines="1"
             android:textColor="@color/black" />
     </com.google.android.material.textfield.TextInputLayout>
+
+    <CheckBox
+        android:id="@+id/remember"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="40dp"
+        android:buttonTint="@color/blue"
+        android:fontFamily="@font/poppins"
+        android:text="@string/remember_me"
+        android:textColor="@color/dark_gray"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/passwordWrapper" />
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/submitBtn"

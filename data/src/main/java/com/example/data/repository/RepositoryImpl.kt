@@ -17,4 +17,8 @@ class RepositoryImpl @Inject constructor(
     fun getCurrentUser() : FirebaseUser {
         return currentUser!!
     }
+
+    fun setRememberUser(remember: Boolean) = sharedPref.setRememberUser(remember)
+
+    fun getRememberUser() : Boolean = sharedPref.getRememberUser()
 }

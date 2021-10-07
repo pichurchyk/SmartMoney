@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main_nav_graph"
-    app:startDestination="@id/signInFragment">
+    app:startDestination="@id/splashScreenFragment">
 
     <fragment
         android:id="@+id/signInFragment"
@@ -11,12 +11,12 @@
         android:label="fragment_sign_in"
         tools:layout="@layout/fragment_sign_in">
         <action
+            android:id="@+id/action_signInFragment_to_signUpFragment"
+            app:destination="@id/signUpFragment"
             app:enterAnim="@anim/slide_from_right"
             app:exitAnim="@anim/slide_to_left"
             app:popEnterAnim="@anim/slide_from_left"
-            app:popExitAnim="@anim/slide_to_right"
-            android:id="@+id/action_signInFragment_to_signUpFragment"
-            app:destination="@id/signUpFragment" />
+            app:popExitAnim="@anim/slide_to_right" />
         <action
             android:id="@+id/action_signInFragment_to_historyFragment"
             app:destination="@id/historyFragment" />
@@ -28,12 +28,11 @@
         android:label="fragment_sign_up"
         tools:layout="@layout/fragment_sign_up">
         <action
-            app:popExitAnim="@anim/slide_to_right"
-            app:enterAnim="@anim/slide_from_left"
-            app:exitAnim="@anim/slide_to_right"
             android:id="@+id/action_signUpFragment_to_signInFragment"
             app:destination="@id/signInFragment"
- />
+            app:enterAnim="@anim/slide_from_left"
+            app:exitAnim="@anim/slide_to_right"
+            app:popExitAnim="@anim/slide_to_right" />
         <action
             android:id="@+id/action_signUpFragment_to_historyFragment"
             app:destination="@id/historyFragment" />
@@ -48,4 +47,20 @@
         android:name="com.example.smartmoney.ui.manager.ManagerFragment"
         android:label="fragment_manager"
         tools:layout="@layout/fragment_manager" />
+    <fragment
+        android:id="@+id/splashScreenFragment"
+        android:name="com.example.smartmoney.ui.splashScreen.SplashScreenFragment"
+        android:label="fragment_splash_screen"
+        tools:layout="@layout/fragment_splash_screen">
+        <action
+            android:id="@+id/action_splashScreenFragment_to_signInFragment"
+            app:destination="@id/signInFragment"
+            app:popUpTo="@id/main_nav_graph"
+            app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_splashScreenFragment_to_historyFragment"
+            app:destination="@id/historyFragment"
+            app:popUpTo="@id/main_nav_graph"
+            app:popUpToInclusive="true" />
+    </fragment>
 </navigation>

@@ -12,56 +12,55 @@
         android:name="androidx.navigation.fragment.NavHostFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_margin="16dp"
         android:duplicateParentState="true"
         app:defaultNavHost="true"
         app:navGraph="@navigation/main_nav_graph" />
 
-    <com.google.android.material.bottomnavigation.BottomNavigationView
+    <com.google.android.material.navigation.NavigationView
         android:id="@+id/menu"
-        android:layout_width="0dp"
+        android:layout_width="150dp"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="40dp"
+        android:layout_marginTop="10dp"
         android:background="@drawable/bg_menu"
+        android:orientation="vertical"
         android:visibility="gone"
         app:elevation="10dp"
+        app:itemBackground="@android:color/transparent"
         app:itemIconTint="@drawable/menu_style"
         app:itemTextColor="@drawable/menu_style"
         app:labelVisibilityMode="selected"
-        app:itemRippleColor="@android:color/transparent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/guideline80"
-        app:layout_constraintStart_toStartOf="@+id/fragmentContainerView"
+        app:layout_constraintStart_toStartOf="@+id/btnHideMenu"
+        app:layout_constraintTop_toTopOf="@+id/guideline87"
         app:menu="@menu/bottom_nav_menu" />
 
     <androidx.appcompat.widget.AppCompatImageButton
         android:id="@+id/btnHideMenu"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginStart="20dp"
-        android:layout_marginBottom="40dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
         android:background="@drawable/bg_menu"
         android:elevation="10dp"
-        android:visibility="gone"
         android:scaleType="center"
         android:src="@drawable/ic_hide"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/fragmentContainerView"
-        app:layout_constraintStart_toStartOf="@+id/guideline80"
-        app:layout_constraintTop_toTopOf="@+id/guideline87" />
+        android:visibility="gone"
+        app:layout_constraintBottom_toTopOf="@+id/guideline87"
+        app:layout_constraintEnd_toStartOf="@+id/guideline80"
+        app:layout_constraintStart_toStartOf="@+id/fragmentContainerView"
+        app:layout_constraintTop_toTopOf="@+id/fragmentContainerView" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline80"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.8" />
+        app:layout_constraintGuide_percent="0.15" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline87"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.87" />
+        app:layout_constraintGuide_percent="0.1" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

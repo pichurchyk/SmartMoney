@@ -18,12 +18,14 @@
     <string name="history">History</string>
     <string name="manager">Manager</string>
     <string name="settings">Settings</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+
     <string name="manager_title">Manage your transaction with</string>
     <string name="transaction_manager">Transaction Manager</string>
     <string name="amount">Amount</string>
     <string name="description">Description</string>
     <string name="income">Income</string>
     <string name="expense">Expense</string>
+    <string name="submit">Submit</string>
+    <string name="remember_me">Remember me</string>
+    <string name="app_description">Your personal transaction helper</string>
 </resources>

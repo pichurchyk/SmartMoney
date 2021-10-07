@@ -13,6 +13,7 @@ import com.example.smartmoney.common.util.dialogBuilder
 import com.example.smartmoney.common.util.hideKeyboard
 import com.example.smartmoney.common.util.snackbar
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.google.android.material.navigation.NavigationView
 
 abstract class BaseFragment(@LayoutRes layoutId: Int) : Fragment(layoutId) {
     abstract val viewModel: ViewModel
@@ -44,12 +45,12 @@ abstract class BaseFragment(@LayoutRes layoutId: Int) : Fragment(layoutId) {
         if (isVisible) {
             requireActivity().findViewById<AppCompatImageButton>(R.id.btnHideMenu).visibility =
                 View.VISIBLE
-            requireActivity().findViewById<BottomNavigationView>(R.id.menu).visibility =
+            requireActivity().findViewById<NavigationView>(R.id.menu).visibility =
                 View.VISIBLE
         } else {
             requireActivity().findViewById<AppCompatImageButton>(R.id.btnHideMenu).visibility =
                 View.GONE
-            requireActivity().findViewById<BottomNavigationView>(R.id.menu).visibility =
+            requireActivity().findViewById<NavigationView>(R.id.menu).visibility =
                 View.GONE
         }
     }

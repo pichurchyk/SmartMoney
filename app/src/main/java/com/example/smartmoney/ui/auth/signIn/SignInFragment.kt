@@ -114,7 +114,9 @@ class SignInFragment : BaseFragment(R.layout.fragment_sign_in) {
 
         mAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener { task ->
             if (task.isSuccessful) {
+                viewModel.setRememberUser(binding.remember.isChecked)
                 navigate(R.id.action_signInFragment_to_historyFragment)
+
             } else {
                 snackBar(requireView(), "Login Failed! Check your data and try again")
                 binding.password.setText("")

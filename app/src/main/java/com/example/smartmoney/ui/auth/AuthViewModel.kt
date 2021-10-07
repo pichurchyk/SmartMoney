@@ -32,4 +32,11 @@ class AuthViewModel @Inject constructor(private val repository: RepositoryImpl) 
 
     fun setCurrentUser(user: FirebaseUser) = repository.setCurrentUser(user)
 
+    fun setRememberUser(remember: Boolean) {
+        repository.setRememberUser(remember)
+    }
+
+    fun getRememberUser() : Boolean {
+        return repository.getRememberUser()
+    }
 }
