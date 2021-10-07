@@ -128,12 +128,8 @@ class SignUpFragment : BaseFragment(R.layout.fragment_sign_up) {
                     snackBar(requireView(), task.exception!!.message!!)
                 }
 
-
                 if (task.isSuccessful) {
-                    val firebaseUser = task.result!!.user!!
-                    viewModel.setCurrentUser(firebaseUser)
                     snackBar(requireView(), "Registered with $email")
-
                     navigate(R.id.action_signUpFragment_to_historyFragment)
                 }
             }

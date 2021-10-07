@@ -30,13 +30,7 @@ class AuthViewModel @Inject constructor(private val repository: RepositoryImpl) 
         return isEmailValid.value && isPasswordValid.value
     }
 
-    fun setCurrentUser(user: FirebaseUser) = repository.setCurrentUser(user)
-
     fun setRememberUser(remember: Boolean) {
         repository.setRememberUser(remember)
-    }
-
-    fun getRememberUser() : Boolean {
-        return repository.getRememberUser()
     }
 }

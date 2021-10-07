@@ -12,13 +12,7 @@ class HistoryRecyclerAdapter : ListAdapter<SingleTransaction, HistoryRecyclerAda
     inner class mViewHolder(private val binding: FragmentHistoryListItemBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(transaction: SingleTransaction) {
             binding.total.text = transaction.total.toString()
-            binding.date.text = transaction.date.toString()
-            if (transaction.isSpent) {
-                binding.status.text = "Debit"
-            }
-            else {
-                binding.status.text = "Accrual"
-            }
+            binding.date.text = transaction.date
         }
     }
 

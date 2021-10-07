@@ -4,6 +4,8 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/Users/User/SmartMoney/app/src/main/res/drawable/bg_bottom_menu.xml" value="0.3828125" />
+        <entry key="..\:/Users/User/SmartMoney/app/src/main/res/drawable/bg_corners.xml" value="0.28072916666666664" />
+        <entry key="..\:/Users/User/SmartMoney/app/src/main/res/drawable/bg_corners_white.xml" value="0.3828125" />
         <entry key="..\:/Users/User/SmartMoney/app/src/main/res/drawable/bg_history_item.xml" value="0.3828125" />
         <entry key="..\:/Users/User/SmartMoney/app/src/main/res/drawable/bg_history_list_item.xml" value="0.3828125" />
         <entry key="..\:/Users/User/SmartMoney/app/src/main/res/drawable/bg_inpit_field_white.xml" value="0.3828125" />
@@ -20,8 +22,10 @@
         <entry key="..\:/Users/User/SmartMoney/app/src/main/res/drawable/bg_switch_track.xml" value="0.3828125" />
         <entry key="..\:/Users/User/SmartMoney/app/src/main/res/drawable/bg_switcher.xml" value="0.3828125" />
         <entry key="..\:/Users/User/SmartMoney/app/src/main/res/drawable/bg_switcher_selected.xml" value="0.3828125" />
+        <entry key="..\:/Users/User/SmartMoney/app/src/main/res/drawable/bg_switcher_selected_first.xml" value="0.28072916666666664" />
         <entry key="..\:/Users/User/SmartMoney/app/src/main/res/drawable/bg_switcher_selected_second.xml" value="0.36770833333333336" />
         <entry key="..\:/Users/User/SmartMoney/app/src/main/res/drawable/bg_switcher_selector.xml" value="0.3828125" />
+        <entry key="..\:/Users/User/SmartMoney/app/src/main/res/drawable/bg_switcher_selector_first.xml" value="0.28072916666666664" />
         <entry key="..\:/Users/User/SmartMoney/app/src/main/res/drawable/bg_switcher_selector_second.xml" value="0.3828125" />
         <entry key="..\:/Users/User/SmartMoney/app/src/main/res/drawable/bg_switcher_text.xml" value="0.3828125" />
         <entry key="..\:/Users/User/SmartMoney/app/src/main/res/drawable/bg_switcher_unselected.xml" value="0.3828125" />

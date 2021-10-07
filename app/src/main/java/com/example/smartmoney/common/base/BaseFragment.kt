@@ -54,11 +54,4 @@ abstract class BaseFragment(@LayoutRes layoutId: Int) : Fragment(layoutId) {
                 View.GONE
         }
     }
-
-    fun slideMenu(slideUp: Boolean) {
-        val direction = if (slideUp) -100F else 100F
-
-        requireActivity().findViewById<BottomNavigationView>(R.id.menu).animate()
-            .translationY(direction).duration = 200
-    }
 }
