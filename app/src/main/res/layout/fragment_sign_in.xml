@@ -89,15 +89,9 @@
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/submitBtn"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
         android:layout_marginBottom="30dp"
-        android:background="@drawable/bg_round_btn"
-        android:fontFamily="@font/poppins_medium"
-        android:letterSpacing="0.11"
         android:text="@string/sign_in"
-        android:textColor="@color/white"
-        android:textSize="16sp"
+        style="@style/BigBtn"
         app:layout_constraintBottom_toTopOf="@+id/linearLayout"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />

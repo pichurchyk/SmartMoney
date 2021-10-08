@@ -11,7 +11,6 @@
         android:id="@+id/titleWrapper"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
         android:gravity="center"
         android:orientation="vertical"
         app:layout_constraintEnd_toEndOf="parent"
@@ -39,6 +38,7 @@
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/submitBtn"
         style="@style/BigBtn"
+        android:layout_marginBottom="10dp"
         android:text="@string/submit"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -47,6 +47,7 @@
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        android:layout_marginTop="20dp"
         android:layout_marginBottom="20dp"
         android:background="@drawable/bg_manager_wrapper"
         android:overScrollMode="never"
@@ -55,7 +56,7 @@
         app:layout_constraintBottom_toTopOf="@id/submitBtn"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/guideline20">
+        app:layout_constraintTop_toBottomOf="@+id/titleWrapper">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -68,14 +69,16 @@
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:background="@drawable/bg_corners_white"
                 android:hint="@string/amount"
-                android:textColorHint="@color/black">
+                android:paddingBottom="4dp"
+                android:textColorHint="@color/dark_gray">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/amount"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/bg_corners_white"
+                    android:background="@android:color/transparent"
                     android:inputType="numberDecimal"
                     android:maxLines="1"
                     android:textColor="@color/black" />
@@ -87,14 +90,16 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="40dp"
+                android:background="@drawable/bg_corners_white"
                 android:hint="@string/description"
-                android:textColorHint="@color/black">
+                android:paddingBottom="4dp"
+                android:textColorHint="@color/dark_gray">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/description"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/bg_corners_white"
+                    android:background="@android:color/transparent"
                     android:inputType="text"
                     android:maxLength="35"
                     android:maxLines="1"
@@ -135,9 +140,11 @@
                     android:textColor="@color/bg_switcher_text" />
             </RadioGroup>
 
-            <CalendarView
+            <DatePicker
                 android:id="@+id/calendar"
-                android:layout_width="wrap_content"
+                android:datePickerMode="spinner"
+                android:calendarViewShown="false"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="40dp"
                 android:background="@drawable/bg_corners_white"
@@ -148,11 +155,4 @@
         </LinearLayout>
 
     </ScrollView>
-
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline20"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.2" />
 </androidx.constraintlayout.widget.ConstraintLayout>

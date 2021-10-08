@@ -1,6 +1,7 @@
 package com.example.smartmoney.ui.splashScreen
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -9,6 +10,7 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import com.example.smartmoney.R
 import com.example.smartmoney.common.base.BaseFragment
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.delay
 import javax.inject.Inject
@@ -28,5 +30,13 @@ class SplashScreenFragment : BaseFragment(R.layout.fragment_splash_screen){
                 navigate(R.id.action_splashScreenFragment_to_signInFragment)
             }
         }
+    }
+
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        return super.onCreateView(inflater, container, savedInstanceState)
     }
 }

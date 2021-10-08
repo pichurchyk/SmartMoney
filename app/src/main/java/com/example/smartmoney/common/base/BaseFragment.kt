@@ -1,9 +1,11 @@
 package com.example.smartmoney.common.base
 
+import android.os.Bundle
+import android.util.Log
 import android.view.View
 import androidx.annotation.LayoutRes
 import androidx.annotation.StringRes
-import androidx.appcompat.widget.AppCompatImageButton
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModel
 import androidx.navigation.Navigation
@@ -13,7 +15,6 @@ import com.example.smartmoney.common.util.dialogBuilder
 import com.example.smartmoney.common.util.hideKeyboard
 import com.example.smartmoney.common.util.snackbar
 import com.google.android.material.bottomnavigation.BottomNavigationView
-import com.google.android.material.navigation.NavigationView
 
 abstract class BaseFragment(@LayoutRes layoutId: Int) : Fragment(layoutId) {
     abstract val viewModel: ViewModel
@@ -43,15 +44,31 @@ abstract class BaseFragment(@LayoutRes layoutId: Int) : Fragment(layoutId) {
 
     fun menuVisibility(isVisible: Boolean) {
         if (isVisible) {
-            requireActivity().findViewById<AppCompatImageButton>(R.id.btnHideMenu).visibility =
-                View.VISIBLE
-            requireActivity().findViewById<NavigationView>(R.id.menu).visibility =
+            requireActivity().findViewById<BottomNavigationView>(R.id.menu).visibility =
                 View.VISIBLE
         } else {
-            requireActivity().findViewById<AppCompatImageButton>(R.id.btnHideMenu).visibility =
+            requireActivity().findViewById<BottomNavigationView>(R.id.menu).visibility =
                 View.GONE
-            requireActivity().findViewById<NavigationView>(R.id.menu).visibility =
-                View.GONE
+        }
+    }
+
+    fun addMenuListener() {
+        val root = requireActivity().findViewById<ConstraintLayout>(R.id.mainActivityWrapper)
+
+        var isMenuVisible = false
+        root.viewTreeObserver.addOnGlobalLayoutListener {
+            val height = root.rootView.height - root.height
+            if (height > 200) {
+                isMenuVisible = true
+                menuVisibility(false)
+            } else {
+                if (isMenuVisible) {
+                    requireView().clearFocus()
+                    isMenuVisible = false
+                }
+
+                menuVisibility(true)
+            }
         }
     }
 }

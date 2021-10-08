@@ -14,6 +14,7 @@
         android:theme="@style/Theme.SmartMoney">
         <activity
             android:name=".ui.MainActivity"
+            android:configChanges="keyboard|keyboardHidden|screenSize"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

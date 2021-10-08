@@ -9,24 +9,18 @@ import javax.inject.Inject
 @HiltViewModel
 class ManagerViewModel @Inject constructor(private val repository: RepositoryImpl) : ViewModel() {
 
-    private var transaction: SingleTransaction? = null
+    var date : Long ?= null
+    var type : String ?= null
+    var amount : Double ?= null
+    var description : String ?= null
 
-    fun collectTransactionData(
-        id: Long,
-        date: Long,
-        type: String,
-        amount: Double,
-        description: String?
-    ) {
+    var checkedTypeId : Int ?= null
+
+    var transaction: SingleTransaction? = null
+
+    fun pushTransactionToFirebase() {
         val userEmail = repository.getCurrentUser().email
-
-        transaction =
-            SingleTransaction(id.toString(), userEmail!!, date.toString(), type, amount, description)
-
-        pushTransactionToFirebase()
-    }
-
-    private fun pushTransactionToFirebase() {
+        transaction = SingleTransaction(date.toString(), userEmail!!, date.toString(), type!!, amount!!, description)
         repository.pushTransactionToFirebase(transaction!!)
     }
 }

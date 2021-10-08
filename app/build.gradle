@@ -78,4 +78,7 @@ dependencies {
 //    Firebase
     implementation 'com.google.firebase:firebase-auth-ktx:21.0.1'
     implementation "com.google.firebase:firebase-database:20.0.2"
+
+//    JodaTime
+    implementation 'joda-time:joda-time:2.10.12'
 }
