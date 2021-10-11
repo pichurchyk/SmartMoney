@@ -123,7 +123,6 @@
                     android:layout_weight="1"
                     android:background="@drawable/bg_switcher_selector_first"
                     android:button="@android:color/transparent"
-                    android:checked="true"
                     android:gravity="center"
                     android:text="@string/income"
                     android:textColor="@color/bg_switcher_text" />

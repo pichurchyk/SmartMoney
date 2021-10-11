@@ -25,9 +25,13 @@ class ManagerFragment : BaseFragment(R.layout.fragment_manager) {
 
         addEventListeners()
 
+        if (viewModel.date == null) {
+            viewModel.validateDate(binding.calendar.dayOfMonth, binding.calendar.month, binding.calendar.year)
+        }
+
+        viewModel.checkedTypeId?.let { binding.radioGroup.check(it) }
         viewModel.amount?.let { binding.amount.setText(it.toString()) }
         viewModel.description?.let { binding.description.setText(it) }
-        viewModel.checkedTypeId?.let { binding.radioGroup.check(it) }
     }
 
     private fun addEventListeners() {
@@ -51,14 +55,12 @@ class ManagerFragment : BaseFragment(R.layout.fragment_manager) {
             val checkedType = group.findViewById<RadioButton>(checkedId)
 
             viewModel.type = checkedType.text.toString()
+
+            Log.d("111", viewModel.type.toString())
         }
 
         binding.calendar.setOnDateChangedListener { _, year, month, dayOfMonth ->
-            val formatter = DateTimeFormat.forPattern("dd/mm/yyyy")
-            val date = "$dayOfMonth/${month+1}/$year"
-            val jodaDate = formatter.parseDateTime(date)
-            val output = DateTimeFormat.forPattern("dd.mm.yyyy")
-            Log.d("111", output.print(jodaDate))
+            viewModel.validateDate(dayOfMonth, month, year)
         }
 
         binding.root.setOnClickListener {
@@ -66,11 +68,11 @@ class ManagerFragment : BaseFragment(R.layout.fragment_manager) {
         }
 
         binding.submitBtn.setOnClickListener {
-            viewModel.pushTransactionToFirebase()
+            if (viewModel.isAllFilled()) {
+                viewModel.pushTransactionToFirebase()
+            } else {
+                snackBar(requireView(), "You need to fill all fields")
+            }
         }
-    }
-
-    private fun getDateMill(): String {
-        return DateTime.now().toString()
     }
 }

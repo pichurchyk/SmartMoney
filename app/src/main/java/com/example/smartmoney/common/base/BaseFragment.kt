@@ -63,7 +63,7 @@ abstract class BaseFragment(@LayoutRes layoutId: Int) : Fragment(layoutId) {
                 menuVisibility(false)
             } else {
                 if (isMenuVisible) {
-                    requireView().clearFocus()
+                    root.clearFocus()
                     isMenuVisible = false
                 }
 
