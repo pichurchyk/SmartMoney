@@ -1,22 +1,22 @@
 package com.example.smartmoney.ui.manager
 
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import com.example.data.repository.RepositoryImpl
 import com.example.domain.model.SingleTransaction
+import com.example.smartmoney.common.DateTimeParser
 import dagger.hilt.android.lifecycle.HiltViewModel
 import org.joda.time.DateTime
-import org.joda.time.format.DateTimeFormat
-import java.util.*
 import javax.inject.Inject
 
 @HiltViewModel
 class ManagerViewModel @Inject constructor(private val repository: RepositoryImpl) : ViewModel() {
 
+    private val dateTimeParser = DateTimeParser()
+
     private val transactionId = DateTime.now().millis.toString()
-    var date: String? = null
+    var date: Long? = null
     var type: String? = null
-    var amount: Double? = null
+    var amount: String? = null
     var description: String? = ""
 
     var checkedTypeId: Int? = null
@@ -26,36 +26,21 @@ class ManagerViewModel @Inject constructor(private val repository: RepositoryImp
     fun pushTransactionToFirebase() {
         val userEmail = repository.getCurrentUser().email
 
-        transaction = SingleTransaction(transactionId, userEmail!!, date.toString(), type!!, amount!!, description)
+        transaction =
+            SingleTransaction(transactionId, userEmail!!, date, type!!, amount!!, description)
         repository.pushTransactionToFirebase(transaction!!)
     }
 
-    fun isAllFilled() : Boolean {
+    fun isAllFilled(): Boolean {
         return (date != null) && (amount != null) && (checkedTypeId != null)
     }
 
+     fun isDateValid() : Boolean {
+        return dateTimeParser.isDateValid()
+    }
+
     fun validateDate(dayOfMonth: Int, month: Int, year: Int) {
-        val calendar = Calendar.getInstance()
-        calendar.set(Calendar.DAY_OF_MONTH, dayOfMonth)
-        calendar.set(Calendar.MONTH, month)
-        calendar.set(Calendar.YEAR, year)
-
-        val userDate = DateTime(calendar.timeInMillis)
-        val defaultDate = DateTime.now()
-
-        date = when (userDate.millis > defaultDate.millis) {
-            true -> {
-                val defaultDay = defaultDate.dayOfMonth().asText
-                val defaultMonth = defaultDate.monthOfYear().asShortText
-                val defaultYear = defaultDate.year().asText
-                "$defaultDay $defaultMonth $defaultYear"
-            }
-            false -> {
-                val userDay = userDate.dayOfMonth().asText
-                val userMonth = userDate.monthOfYear().asShortText
-                val userYear = userDate.year().asText
-                "$userDay $userMonth $userYear"
-            }
-        }
+        dateTimeParser.setTimeInMills(dayOfMonth, month, year)
+        date = dateTimeParser.getDateInMills()
     }
 }

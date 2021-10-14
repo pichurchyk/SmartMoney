@@ -2,17 +2,30 @@ package com.example.smartmoney.ui.history.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.domain.model.SingleTransaction
+import com.example.smartmoney.R
+import com.example.smartmoney.common.DateTimeParser
 import com.example.smartmoney.databinding.FragmentHistoryListItemBinding
 
 class HistoryRecyclerAdapter : ListAdapter<SingleTransaction, HistoryRecyclerAdapter.mViewHolder>(COMPARATOR){
     inner class mViewHolder(private val binding: FragmentHistoryListItemBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(transaction: SingleTransaction) {
-            binding.total.text = transaction.total.toString()
-            binding.date.text = transaction.date
+            val dateTimeParser = DateTimeParser()
+            val date = dateTimeParser.getDateAsString(transaction.date!!)
+
+            binding.total.text =  "$${transaction.total}"
+            binding.date.text = date
+            binding.status.text = transaction.type
+
+            binding.description.text = transaction.description ?: "No Description"
+
+            if (transaction.type.equals("Expense")) {
+                binding.root.setBackgroundResource(R.drawable.bg_history_list_item_dark)
+            }
         }
     }
 
@@ -22,7 +35,7 @@ class HistoryRecyclerAdapter : ListAdapter<SingleTransaction, HistoryRecyclerAda
                 oldItem.date == newItem.date
 
             override fun areContentsTheSame(oldItem: SingleTransaction, newItem: SingleTransaction) =
-                oldItem == newItem
+                oldItem.equals(newItem)
         }
     }
 

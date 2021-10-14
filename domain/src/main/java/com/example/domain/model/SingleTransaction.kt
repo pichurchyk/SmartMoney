@@ -1,10 +1,10 @@
 package com.example.domain.model
 
-data class SingleTransaction(
-    val id: String,
-    val userEmail: String,
-    val date: String,
-    val type: String,
-    val total: Double,
-    val description: String?
+class SingleTransaction(
+    var id: String? = null,
+    var userEmail: String? = null,
+    var date: Long? = null,
+    var type: String? = null,
+    var total: String? = null,
+    var description: String? = null
 )

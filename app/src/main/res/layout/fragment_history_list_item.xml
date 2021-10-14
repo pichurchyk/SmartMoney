@@ -18,8 +18,7 @@
         android:layout_height="wrap_content"
         android:gravity="center"
         android:orientation="horizontal"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/status"
         app:layout_constraintTop_toTopOf="parent">
 
         <ImageView
@@ -28,15 +27,27 @@
             android:src="@drawable/ic_calendar" />
 
         <TextView
-            android:layout_marginStart="12dp"
             android:id="@+id/date"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="12dp"
             android:fontFamily="@font/poppins_medium"
-            android:text="13/11/2019"
+            android:text="Date"
             android:textColor="@color/white" />
 
     </LinearLayout>
+
+    <TextView
+        android:id="@+id/description"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:fontFamily="@font/poppins"
+        android:text="Description"
+        android:textColor="@color/white"
+        app:layout_constraintEnd_toStartOf="@+id/dateWrapper"
+        app:layout_constraintStart_toStartOf="@+id/total"
+        app:layout_constraintTop_toBottomOf="@+id/total" />
 
     <TextView
         android:id="@+id/total"
@@ -47,8 +58,8 @@
         android:text="$132"
         android:textColor="@color/white"
         android:textSize="18sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
+
+        app:layout_constraintBottom_toBottomOf="@+id/dateWrapper"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -56,11 +67,12 @@
         android:id="@+id/status"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:fontFamily="@font/poppins"
-        android:text="Income"
+        android:layout_marginEnd="10dp"
+        android:fontFamily="@font/poppins_bold"
+        android:text="Type"
+        android:letterSpacing="0.05"
+        android:textSize="16sp"
         android:textColor="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/total"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>
