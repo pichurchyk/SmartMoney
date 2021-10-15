@@ -1,7 +1,6 @@
 package com.example.smartmoney.ui.history
 
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
@@ -12,6 +11,7 @@ import com.example.smartmoney.common.base.BaseFragment
 import com.example.smartmoney.databinding.FragmentHistoryBinding
 import com.example.smartmoney.ui.history.adapter.HistoryRecyclerAdapter
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
@@ -37,10 +37,11 @@ class HistoryFragment : BaseFragment(R.layout.fragment_history) {
 
 
     private fun setupObservers() {
-        lifecycleScope.launch {
-            viewModel.getData.collect {
+        lifecycleScope.launch(Dispatchers.IO) {
+            viewModel.setListener.start()
+            viewModel.observeTransactions.start()
+            viewModel.transactions.collect {
                 adapter!!.submitList(it)
-                viewModel.getTotalAmount(it)
             }
         }
         lifecycleScope.launch {

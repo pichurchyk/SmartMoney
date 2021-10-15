@@ -8,9 +8,9 @@
     android:background="@drawable/bg_history_list_item"
     android:paddingStart="20dp"
     android:paddingTop="16dp"
+    android:layout_marginStart="16dp"
     android:paddingEnd="20dp"
-    android:paddingBottom="16dp"
-    android:translationX="16dp">
+    android:paddingBottom="16dp">
 
     <LinearLayout
         android:id="@+id/dateWrapper"

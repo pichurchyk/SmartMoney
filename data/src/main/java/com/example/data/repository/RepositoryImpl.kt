@@ -6,16 +6,16 @@ import com.example.domain.model.SingleTransaction
 import com.example.domain.repository.Repository
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.ktx.auth
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ValueEventListener
 import com.google.firebase.ktx.Firebase
-import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.cancel
-import kotlinx.coroutines.channels.awaitClose
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.callbackFlow
-import org.joda.time.DateTime
-import org.joda.time.format.DateTimeFormat
-import org.joda.time.format.DateTimeFormatter
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 
@@ -23,8 +23,6 @@ class RepositoryImpl @Inject constructor(
     private val sharedPref: SharedPreferencesSource,
     private val firebaseDatabase: FirebaseDatabase,
 ) : Repository {
-
-    private val transactionsList = mutableListOf<SingleTransaction>()
 
     fun getCurrentUser(): FirebaseUser {
         return Firebase.auth.currentUser!!
@@ -39,31 +37,35 @@ class RepositoryImpl @Inject constructor(
             .setValue(transaction)
     }
 
-    @ExperimentalCoroutinesApi
-    fun observeTransactions(): Flow<List<SingleTransaction>> = callbackFlow {
-        firebaseDatabase.reference.get().addOnCompleteListener { task ->
-            if (task.isSuccessful) {
-                val result = task.result
-                result?.let {
-                    result.children.map { snapShot ->
-                        snapShot.getValue(SingleTransaction::class.java)
-                        val filteredSnapshot = snapShot.children
-                            .filter {
-                            it.getValue(SingleTransaction::class.java)?.userEmail.equals(
-                                getCurrentUser().email) }
-                            .sortedBy { it.getValue(SingleTransaction::class.java)!!.date }
+    val _transactions = MutableStateFlow<List<SingleTransaction>>(mutableListOf())
+    val transactionFlow = _transactions.asStateFlow()
 
-                        filteredSnapshot.forEach {
-                            val transaction = it.getValue(SingleTransaction::class.java)
-                            transactionsList.add(transaction!!)
-                        }
+    val transactionsListener = object : ValueEventListener {
+        override fun onDataChange(snapshot: DataSnapshot) {
+            val transactionsList = mutableListOf<SingleTransaction>()
+            snapshot.children.map { snapshotItem ->
+                snapshotItem.children
+                    .filter {
+                        it.getValue(SingleTransaction::class.java)?.userEmail.equals(
+                            getCurrentUser().email
+                        )
                     }
-                }
-                trySend(transactionsList)
-            } else {
-                Log.d("111", "Exception: ${task.exception.toString()}")
+                    .sortedBy { it.getValue(SingleTransaction::class.java)!!.date }
+                    .forEach {
+                        val transaction = it.getValue(SingleTransaction::class.java)
+                        transactionsList.add(transaction!!)
+                    }
+                _transactions.value = transactionsList
             }
         }
-        awaitClose { cancel() }
+
+        override fun onCancelled(error: DatabaseError) {
+            Log.d("111", "Canceled")
+        }
+
+    }
+
+    val setListener = GlobalScope.launch(Dispatchers.IO) {
+        firebaseDatabase.reference.addValueEventListener(transactionsListener)
     }
 }

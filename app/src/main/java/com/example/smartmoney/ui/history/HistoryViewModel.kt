@@ -1,15 +1,12 @@
 package com.example.smartmoney.ui.history
 
-import android.util.Log
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.data.repository.RepositoryImpl
 import com.example.domain.model.SingleTransaction
 import com.google.firebase.auth.FirebaseUser
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.delay
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 import java.math.BigDecimal
@@ -20,13 +17,22 @@ class HistoryViewModel @Inject constructor(private val repository: RepositoryImp
     private var currentUser: FirebaseUser = repository.getCurrentUser()
 
     private val _totalAmount = MutableStateFlow(0.toBigDecimal())
-    val totalAmount : StateFlow<BigDecimal> = _totalAmount.asStateFlow()
-
-    @ExperimentalCoroutinesApi
-    val getData = repository.observeTransactions()
+    val totalAmount: StateFlow<BigDecimal> = _totalAmount.asStateFlow()
 
     fun getCurrentUser(): FirebaseUser {
         return currentUser
+    }
+
+    val setListener = repository.setListener
+
+    private val _transactions = MutableStateFlow(repository._transactions.value)
+    val transactions = _transactions.asStateFlow()
+
+    val observeTransactions = viewModelScope.launch(Dispatchers.IO) {
+        repository.transactionFlow.collect {
+            val newList = it
+            _transactions.value = newList
+        }
     }
 
     fun getTotalAmount(allTransactions: List<SingleTransaction>) {
