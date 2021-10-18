@@ -15,6 +15,7 @@ import com.example.smartmoney.ui.history.adapter.HistoryRecyclerAdapter
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
@@ -23,6 +24,8 @@ import kotlinx.coroutines.launch
 class HistoryFragment : BaseFragment(R.layout.fragment_history), HistoryRecyclerAdapter.OpenDetails {
     private val binding by viewBinding(FragmentHistoryBinding::bind)
     override val viewModel by viewModels<HistoryViewModel>()
+
+    var recyclerViewObserver : Job ?= null
 
     private var adapter: HistoryRecyclerAdapter? = null
 
@@ -39,11 +42,12 @@ class HistoryFragment : BaseFragment(R.layout.fragment_history), HistoryRecycler
 
 
     private fun setupObservers() {
-        lifecycleScope.launch(Dispatchers.IO) {
+        recyclerViewObserver = lifecycleScope.launch(Dispatchers.IO) {
             viewModel.setListener.start()
             viewModel.observeTransactions.start()
             viewModel.transactions.collect {
                 adapter!!.submitList(it)
+                viewModel.getTotalAmount(it)
             }
         }
         lifecycleScope.launch {
@@ -51,6 +55,8 @@ class HistoryFragment : BaseFragment(R.layout.fragment_history), HistoryRecycler
                 binding.totalAmount.text = "$ $it"
             }
         }
+
+        recyclerViewObserver?.start()
     }
 
     private fun setupRecyclerView() {
@@ -63,5 +69,11 @@ class HistoryFragment : BaseFragment(R.layout.fragment_history), HistoryRecycler
     override fun openDetailsListener(transaction: SingleTransaction) {
             val action = HistoryFragmentDirections.actionHistoryFragmentToManagerFragment(transaction)
             findNavController().navigate(action)
+    }
+
+    override fun onPause() {
+        super.onPause()
+
+        recyclerViewObserver?.cancel()
     }
 }
