@@ -7,7 +7,7 @@ class DateTimeParser() {
 
     private var dateInMillis: Long = DateTime.now().millis
 
-    fun isDateValid() : Boolean {
+    fun isDateValid(): Boolean {
         return dateInMillis < DateTime.now().millis
     }
 
@@ -21,7 +21,7 @@ class DateTimeParser() {
     }
 
     fun getDateInMills(): Long {
-        return dateInMillis!!
+        return dateInMillis
     }
 
     fun setTimeInMills(dayOfMonth: Int, month: Int, year: Int) {
@@ -31,5 +31,13 @@ class DateTimeParser() {
         calendar.set(Calendar.YEAR, year)
 
         dateInMillis = calendar.timeInMillis
+    }
+
+    fun getDateAsList(dateInMillis: Long): List<Int> {
+        return listOf(
+            DateTime(dateInMillis).year,
+            DateTime(dateInMillis).monthOfYear - 1,
+            DateTime(dateInMillis).dayOfMonth
+        )
     }
 }

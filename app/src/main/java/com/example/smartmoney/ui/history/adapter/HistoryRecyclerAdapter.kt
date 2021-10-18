@@ -1,5 +1,6 @@
 package com.example.smartmoney.ui.history.adapter
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
@@ -11,11 +12,25 @@ import com.example.smartmoney.R
 import com.example.smartmoney.common.DateTimeParser
 import com.example.smartmoney.databinding.FragmentHistoryListItemBinding
 
-class HistoryRecyclerAdapter : ListAdapter<SingleTransaction, HistoryRecyclerAdapter.mViewHolder>(COMPARATOR){
+class HistoryRecyclerAdapter(private val openDetailsListener: OpenDetails) : ListAdapter<SingleTransaction, HistoryRecyclerAdapter.mViewHolder>(COMPARATOR){
+
+    var currentAdapterPosition = 0
+
     inner class mViewHolder(private val binding: FragmentHistoryListItemBinding) : RecyclerView.ViewHolder(binding.root) {
+
+
         fun bind(transaction: SingleTransaction) {
             val dateTimeParser = DateTimeParser()
             val date = dateTimeParser.getDateAsString(transaction.date!!)
+
+            binding.root.setOnClickListener {
+                if(adapterPosition != RecyclerView.NO_POSITION) {
+                    val item = getItem(adapterPosition)
+                    if (item != null) {
+                        openDetailsListener.openDetailsListener(item)
+                    }
+                }
+            }
 
             binding.total.text =  "$${transaction.total}"
             binding.date.text = date
@@ -39,6 +54,10 @@ class HistoryRecyclerAdapter : ListAdapter<SingleTransaction, HistoryRecyclerAda
         }
     }
 
+    interface OpenDetails {
+        fun openDetailsListener(transaction: SingleTransaction)
+    }
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): mViewHolder {
         return mViewHolder(
             FragmentHistoryListItemBinding.inflate(
@@ -54,6 +73,8 @@ class HistoryRecyclerAdapter : ListAdapter<SingleTransaction, HistoryRecyclerAda
 
         if (currentItem != null) {
             holder.bind(currentItem)
+            currentAdapterPosition = position
+            Log.d("111", "$currentAdapterPosition")
         }
     }
 }

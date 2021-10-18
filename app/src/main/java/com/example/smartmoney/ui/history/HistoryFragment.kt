@@ -4,8 +4,10 @@ import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import by.kirich1409.viewbindingdelegate.viewBinding
+import com.example.domain.model.SingleTransaction
 import com.example.smartmoney.R
 import com.example.smartmoney.common.base.BaseFragment
 import com.example.smartmoney.databinding.FragmentHistoryBinding
@@ -18,7 +20,7 @@ import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 @ExperimentalCoroutinesApi
-class HistoryFragment : BaseFragment(R.layout.fragment_history) {
+class HistoryFragment : BaseFragment(R.layout.fragment_history), HistoryRecyclerAdapter.OpenDetails {
     private val binding by viewBinding(FragmentHistoryBinding::bind)
     override val viewModel by viewModels<HistoryViewModel>()
 
@@ -52,9 +54,14 @@ class HistoryFragment : BaseFragment(R.layout.fragment_history) {
     }
 
     private fun setupRecyclerView() {
-        adapter = HistoryRecyclerAdapter()
+        adapter = HistoryRecyclerAdapter(this)
         val recyclerView = binding.historyList
         recyclerView.layoutManager = LinearLayoutManager(binding.root.context)
         recyclerView.adapter = adapter
+    }
+
+    override fun openDetailsListener(transaction: SingleTransaction) {
+            val action = HistoryFragmentDirections.actionHistoryFragmentToManagerFragment(transaction)
+            findNavController().navigate(action)
     }
 }

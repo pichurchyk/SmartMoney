@@ -41,12 +41,22 @@
         android:id="@+id/historyFragment"
         android:name="com.example.smartmoney.ui.history.HistoryFragment"
         android:label="fragment_history"
-        tools:layout="@layout/fragment_history" />
+        tools:layout="@layout/fragment_history" >
+        <action
+            android:id="@+id/action_historyFragment_to_managerFragment"
+            app:destination="@id/managerFragment" />
+    </fragment>
     <fragment
         android:id="@+id/managerFragment"
         android:name="com.example.smartmoney.ui.manager.ManagerFragment"
         android:label="fragment_manager"
-        tools:layout="@layout/fragment_manager" />
+        tools:layout="@layout/fragment_manager" >
+        <argument
+            android:name="transaction"
+            app:argType="com.example.domain.model.SingleTransaction"
+            app:nullable="true"
+            android:defaultValue="@null" />
+    </fragment>
     <fragment
         android:id="@+id/splashScreenFragment"
         android:name="com.example.smartmoney.ui.splashScreen.SplashScreenFragment"
