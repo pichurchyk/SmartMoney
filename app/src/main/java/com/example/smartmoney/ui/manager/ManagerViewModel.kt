@@ -46,7 +46,7 @@ class ManagerViewModel @Inject constructor(private val repository: RepositoryImp
     }
 
     fun clearFields() {
-        transaction.id = null
+        transaction.id = dateTimeParser.getCurrentDate().toString()
         transaction.date = currentDate
         transaction.total = null
         transaction.description = null

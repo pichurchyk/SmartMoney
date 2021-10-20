@@ -44,4 +44,10 @@ class HistoryViewModel @Inject constructor(private val repository: RepositoryImp
             return@sumOf amountToBigDecimal
         }
     }
+
+    fun clearList() {
+        _transactions.value = listOf()
+    }
+
+    fun deleteFromFirebase(childId: String) = repository.deleteFromFirebase(childId)
 }

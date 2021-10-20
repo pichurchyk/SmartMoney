@@ -4,6 +4,7 @@ import android.util.Log
 import com.example.data.source.SharedPreferencesSource
 import com.example.domain.model.SingleTransaction
 import com.example.domain.repository.Repository
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.database.DataSnapshot
@@ -40,32 +41,38 @@ class RepositoryImpl @Inject constructor(
     val _transactions = MutableStateFlow<List<SingleTransaction>>(mutableListOf())
     val transactionFlow = _transactions.asStateFlow()
 
-    val transactionsListener = object : ValueEventListener {
+    private val transactionsListener = object : ValueEventListener {
         override fun onDataChange(snapshot: DataSnapshot) {
-            val transactionsList = mutableListOf<SingleTransaction>()
-            snapshot.children.map { snapshotItem ->
-                snapshotItem.children
-                    .filter {
-                        it.getValue(SingleTransaction::class.java)?.userEmail.equals(
-                            getCurrentUser().email
-                        )
-                    }
-                    .sortedBy { it.getValue(SingleTransaction::class.java)!!.date }
-                    .forEach {
-                        val transaction = it.getValue(SingleTransaction::class.java)
-                        transactionsList.add(transaction!!)
-                    }
-                _transactions.value = transactionsList
+            if (FirebaseAuth.getInstance().currentUser != null) {
+                val transactionsList = mutableListOf<SingleTransaction>()
+                snapshot.children.map { snapshotItem ->
+                    snapshotItem.children
+                        .filter {
+                            it.getValue(SingleTransaction::class.java)?.userEmail.equals(
+                                getCurrentUser().email
+                            )
+                        }
+                        .sortedBy { it.getValue(SingleTransaction::class.java)!!.date }
+                        .forEach {
+                            val transaction = it.getValue(SingleTransaction::class.java)
+                            transactionsList.add(transaction!!)
+                        }
+
+                    _transactions.value = transactionsList
+                }
             }
         }
 
         override fun onCancelled(error: DatabaseError) {
             Log.d("111", "Canceled")
         }
-
     }
 
     val setListener = GlobalScope.launch(Dispatchers.IO) {
         firebaseDatabase.reference.addValueEventListener(transactionsListener)
+    }
+
+    fun deleteFromFirebase(childId: String) {
+        firebaseDatabase.reference.child("transactions").child(childId).removeValue()
     }
 }

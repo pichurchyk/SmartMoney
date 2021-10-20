@@ -87,7 +87,7 @@ class ManagerFragment : BaseFragment(R.layout.fragment_manager) {
                     snackBar(requireView(), "Check your date please")
                 } else {
                     viewModel.pushTransactionToFirebase()
-                    snackBar(requireView(), "New transaction added!")
+                    snackBar(requireView(), "Success!")
                 }
             } else {
                 snackBar(requireView(), "You need to fill all fields")

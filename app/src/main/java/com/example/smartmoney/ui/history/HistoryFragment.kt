@@ -1,11 +1,14 @@
 package com.example.smartmoney.ui.history
 
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.example.domain.model.SingleTransaction
 import com.example.smartmoney.R
@@ -21,13 +24,16 @@ import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 @ExperimentalCoroutinesApi
-class HistoryFragment : BaseFragment(R.layout.fragment_history), HistoryRecyclerAdapter.OpenDetails {
+class HistoryFragment : BaseFragment(R.layout.fragment_history), HistoryRecyclerAdapter.OpenDetails, SwipeToDelete.DeleteFromFirebase {
     private val binding by viewBinding(FragmentHistoryBinding::bind)
     override val viewModel by viewModels<HistoryViewModel>()
 
-    var recyclerViewObserver : Job ?= null
+    private var transactionsCount = 0
+
+    private var recyclerViewObserver : Job ?= null
 
     private var adapter: HistoryRecyclerAdapter? = null
+    private var recyclerView: RecyclerView? = null
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -48,6 +54,8 @@ class HistoryFragment : BaseFragment(R.layout.fragment_history), HistoryRecycler
             viewModel.transactions.collect {
                 adapter!!.submitList(it)
                 viewModel.getTotalAmount(it)
+
+                transactionsCount = it.size
             }
         }
         lifecycleScope.launch {
@@ -60,10 +68,13 @@ class HistoryFragment : BaseFragment(R.layout.fragment_history), HistoryRecycler
     }
 
     private fun setupRecyclerView() {
+
+
         adapter = HistoryRecyclerAdapter(this)
-        val recyclerView = binding.historyList
-        recyclerView.layoutManager = LinearLayoutManager(binding.root.context)
-        recyclerView.adapter = adapter
+        recyclerView = binding.historyList
+        ItemTouchHelper(SwipeToDelete(requireContext(), this)).attachToRecyclerView(recyclerView)
+        recyclerView?.layoutManager = LinearLayoutManager(binding.root.context)
+        recyclerView?.adapter = adapter
     }
 
     override fun openDetailsListener(transaction: SingleTransaction) {
@@ -73,7 +84,17 @@ class HistoryFragment : BaseFragment(R.layout.fragment_history), HistoryRecycler
 
     override fun onPause() {
         super.onPause()
-
         recyclerViewObserver?.cancel()
+    }
+
+    override fun delete(position: Int) {
+        val transactionToRemoveId = viewModel.transactions.value[position].id
+        viewModel.deleteFromFirebase(transactionToRemoveId!!)
+
+        transactionsCount--
+        if (transactionsCount == 0) {
+            viewModel.clearList()
+            binding.totalAmount.text = "$ 0"
+        }
     }
 }

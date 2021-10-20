@@ -45,10 +45,10 @@ abstract class BaseFragment(@LayoutRes layoutId: Int) : Fragment(layoutId) {
     fun menuVisibility(isVisible: Boolean) {
         if (isAdded) {
             if (isVisible) {
-                requireActivity().findViewById<BottomNavigationView>(R.id.menu).visibility =
+                requireActivity()?.findViewById<BottomNavigationView>(R.id.menu).visibility =
                     View.VISIBLE
             } else {
-                requireActivity().findViewById<BottomNavigationView>(R.id.menu).visibility =
+                requireActivity()?.findViewById<BottomNavigationView>(R.id.menu).visibility =
                     View.GONE
             }
         }

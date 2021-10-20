@@ -20,6 +20,10 @@ class DateTimeParser() {
 
     }
 
+    fun getCurrentDate() : Long {
+        return DateTime.now().millis
+    }
+
     fun getDateInMills(): Long {
         return dateInMillis
     }

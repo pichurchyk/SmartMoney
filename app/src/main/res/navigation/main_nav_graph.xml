@@ -18,6 +18,8 @@
             app:popEnterAnim="@anim/slide_from_left"
             app:popExitAnim="@anim/slide_to_right" />
         <action
+            app:popUpTo="@id/main_nav_graph"
+            app:popUpToInclusive="true"
             android:id="@+id/action_signInFragment_to_historyFragment"
             app:destination="@id/historyFragment" />
     </fragment>
@@ -34,6 +36,8 @@
             app:exitAnim="@anim/slide_to_right"
             app:popExitAnim="@anim/slide_to_right" />
         <action
+            app:popUpTo="@id/main_nav_graph"
+            app:popUpToInclusive="true"
             android:id="@+id/action_signUpFragment_to_historyFragment"
             app:destination="@id/historyFragment" />
     </fragment>
