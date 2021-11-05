@@ -1,19 +1,24 @@
 package com.example.smartmoney.ui
 
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.setupWithNavController
 import com.example.smartmoney.R
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.ktx.Firebase
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity(R.layout.activity_main) {
+
+    private val viewModel by viewModels<MainActivityViewModel>()
 
     private var menu: BottomNavigationView? = null
 
@@ -30,6 +35,8 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
     override fun onDestroy() {
         super.onDestroy()
 
-        FirebaseAuth.getInstance().signOut()
+        if (!viewModel.getRememberUser()) {
+            FirebaseAuth.getInstance().signOut()
+        }
     }
 }

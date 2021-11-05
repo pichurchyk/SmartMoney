@@ -1,6 +1,7 @@
 package com.example.smartmoney.ui.manager
 
 import android.os.Bundle
+import android.system.Os.bind
 import android.view.View
 import android.widget.RadioButton
 import androidx.fragment.app.viewModels
@@ -22,6 +23,8 @@ class ManagerFragment : BaseFragment(R.layout.fragment_manager) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        menuVisibility(true)
 
         addEventListeners()
 
@@ -46,8 +49,6 @@ class ManagerFragment : BaseFragment(R.layout.fragment_manager) {
     }
 
     private fun addEventListeners() {
-        addMenuListener()
-
         binding.amount.addTextChangedListener(SimpleTextWatcher {
             if (!it.isNullOrEmpty()) {
                 viewModel.transaction.total = it.toString()

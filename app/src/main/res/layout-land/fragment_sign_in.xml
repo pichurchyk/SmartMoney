@@ -15,45 +15,60 @@
         app:headerTitle="@string/hey_there"
         app:headerPageName="@string/welcome_back"/>
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/emailWrapper"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+    <LinearLayout
+        android:id="@+id/formWrapper"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="@string/hint_email"
-        android:textColorHint="@color/dark_gray"
-        app:layout_constraintTop_toTopOf="@+id/guideline20">
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/email"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@drawable/bg_corners"
-            android:inputType="textEmailAddress"
-            android:maxLines="1"
-            android:textColor="@color/black" />
-    </com.google.android.material.textfield.TextInputLayout>
-
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/passwordWrapper"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="40dp"
-        android:hint="@string/hint_password"
-        android:textColorHint="@color/dark_gray"
-        app:layout_constraintTop_toBottomOf="@+id/emailWrapper"
+        android:orientation="horizontal"
+        android:weightSum="2"
+        app:layout_constraintTop_toTopOf="@+id/guideline20"
         tools:layout_editor_absoluteX="16dp">
 
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/password"
-            android:layout_width="match_parent"
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/emailWrapper"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:background="@drawable/bg_corners"
-            android:inputType="textPassword"
-            android:maxLines="1"
-            android:textColor="@color/black" />
-    </com.google.android.material.textfield.TextInputLayout>
+            android:layout_weight="1"
+            android:hint="@string/hint_email"
+            android:textColorHint="@color/dark_gray">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/email"
+                android:imeOptions="flagNoExtractUi"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/bg_corners"
+                android:inputType="textEmailAddress"
+                android:maxLines="1"
+                android:textColor="@color/black" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <View
+            android:layout_width="60dp"
+            android:layout_height="0dp" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/passwordWrapper"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:hint="@string/hint_password"
+            android:textColorHint="@color/dark_gray"
+            tools:layout_editor_absoluteX="16dp">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/password"
+                android:layout_width="match_parent"
+                android:imeOptions="flagNoExtractUi"
+                android:layout_height="wrap_content"
+                android:background="@drawable/bg_corners"
+                android:inputType="textPassword"
+                android:maxLines="1"
+                android:textColor="@color/black" />
+        </com.google.android.material.textfield.TextInputLayout>
+    </LinearLayout>
 
     <CheckBox
         android:id="@+id/remember"
@@ -66,7 +81,7 @@
         android:textColor="@color/dark_gray"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/passwordWrapper" />
+        app:layout_constraintTop_toBottomOf="@+id/formWrapper" />
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/submitBtn"

@@ -13,66 +13,65 @@
         android:layout_height="wrap_content"
         app:layout_constraintTop_toTopOf="parent"
         app:headerTitle="@string/hey_there"
-        app:headerPageName="@string/welcome_back"/>
+        app:headerPageName="@string/create_an_account"/>
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/emailWrapper"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+    <LinearLayout
+        android:id="@+id/formWrapper"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="@string/hint_email"
-        android:textColorHint="@color/dark_gray"
+        android:orientation="horizontal"
+        android:weightSum="2"
         app:layout_constraintTop_toTopOf="@+id/guideline20">
 
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/email"
-            android:layout_width="match_parent"
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/emailWrapper"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="0dp"
+            android:layout_weight="1"
             android:layout_height="wrap_content"
-            android:background="@drawable/bg_corners"
-            android:inputType="textEmailAddress"
-            android:maxLines="1"
-            android:textColor="@color/black" />
-    </com.google.android.material.textfield.TextInputLayout>
+            android:hint="@string/hint_email"
+            android:textColorHint="@color/dark_gray">
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/passwordWrapper"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="40dp"
-        android:hint="@string/hint_password"
-        android:textColorHint="@color/dark_gray"
-        app:layout_constraintTop_toBottomOf="@+id/emailWrapper"
-        tools:layout_editor_absoluteX="16dp">
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/email"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/bg_corners"
+                android:inputType="textEmailAddress"
+                android:maxLines="1"
+                android:textColor="@color/black" />
+        </com.google.android.material.textfield.TextInputLayout>
 
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/password"
-            android:layout_width="match_parent"
+        <View
+            android:layout_width="50dp"
+            android:layout_height="0dp"/>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/passwordWrapper"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="0dp"
+            android:layout_weight="1"
             android:layout_height="wrap_content"
-            android:background="@drawable/bg_corners"
-            android:inputType="textPassword"
-            android:maxLines="1"
-            android:textColor="@color/black" />
-    </com.google.android.material.textfield.TextInputLayout>
+            android:hint="@string/hint_password"
+            android:textColorHint="@color/dark_gray">
 
-    <CheckBox
-        android:id="@+id/remember"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="40dp"
-        android:buttonTint="@color/blue"
-        android:fontFamily="@font/poppins"
-        android:text="@string/remember_me"
-        android:textColor="@color/dark_gray"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/passwordWrapper" />
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/password"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/bg_corners"
+                android:inputType="textPassword"
+                android:maxLines="1"
+                android:textColor="@color/black" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+    </LinearLayout>
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/submitBtn"
-        android:layout_marginBottom="30dp"
-        android:text="@string/sign_in"
         style="@style/BigBtn"
+        android:layout_marginBottom="30dp"
+        android:text="@string/sign_up"
         app:layout_constraintBottom_toTopOf="@+id/linearLayout"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
@@ -87,22 +86,22 @@
         app:layout_constraintStart_toStartOf="parent">
 
         <TextView
-            android:id="@+id/hintSignUp"
+            android:id="@+id/hintSignIn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/poppins"
-            android:text="@string/hint_to_sign_up"
+            android:text="@string/hint_to_sign_in"
             android:textColor="@color/dark_gray"
             android:textSize="14sp" />
 
         <TextView
-            android:id="@+id/btnOpenSignUp"
+            android:id="@+id/btnOpenSignIn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="12dp"
             android:fontFamily="@font/poppins_medium"
             android:padding="4dp"
-            android:text="@string/sign_up"
+            android:text="@string/sign_in"
             android:textColor="@color/black"
             android:textSize="16sp" />
     </LinearLayout>
@@ -113,5 +112,6 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         app:layout_constraintGuide_percent="0.20" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

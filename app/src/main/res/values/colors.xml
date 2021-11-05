@@ -15,4 +15,8 @@
     <color name="blue_light">#9DCEFF</color>
     <color name="input_gray">#F7F8F8</color>
     <color name="red">#D53636</color>
+
+    <color name="black_transparent">#7E000000</color>
+    <color name="gradient_light_blue">#9DCEFF</color>
+    <color name="gradient_dark_blue">#92A3FD</color>
 </resources>

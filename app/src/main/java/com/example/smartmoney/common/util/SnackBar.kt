@@ -8,6 +8,6 @@ fun Context.snackbar(view: View, text: String) {
 
     hideKeyboard(view)
 
-    val snackbar = Snackbar.make(view, text, 700)
+    val snackbar = Snackbar.make(view, text, 2000)
     snackbar.show()
 }

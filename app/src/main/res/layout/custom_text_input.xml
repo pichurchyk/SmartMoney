@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <com.google.android.material.textfield.TextInputLayout
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/inputWrapper"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/hint_password"
+        android:textColorHint="@color/dark_gray"
+        app:layout_constraintTop_toTopOf="@+id/guideline33">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/inputField"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bg_corners"
+            android:inputType="textPassword"
+            android:maxLines="1"
+            android:textColor="@color/black" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/submitBtn"
+        android:layout_marginTop="20dp"
+        android:text="@string/submit"
+        style="@style/BigBtn" />
+</LinearLayout>

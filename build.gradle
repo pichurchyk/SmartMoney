@@ -13,6 +13,7 @@ buildscript {
 
 //        Hilt
         classpath 'com.google.dagger:hilt-android-gradle-plugin:2.38.1'
+        classpath 'com.google.firebase:firebase-crashlytics-gradle:2.7.1'
     }
 }
 

@@ -36,8 +36,6 @@
             app:exitAnim="@anim/slide_to_right"
             app:popExitAnim="@anim/slide_to_right" />
         <action
-            app:popUpTo="@id/main_nav_graph"
-            app:popUpToInclusive="true"
             android:id="@+id/action_signUpFragment_to_historyFragment"
             app:destination="@id/historyFragment" />
     </fragment>
@@ -76,5 +74,16 @@
             app:destination="@id/historyFragment"
             app:popUpTo="@id/main_nav_graph"
             app:popUpToInclusive="true" />
+    </fragment>
+    <fragment
+        android:id="@+id/settingsFragment"
+        android:name="com.example.smartmoney.ui.settings.SettingsFragment"
+        android:label="fragment_settings"
+        tools:layout="@layout/fragment_settings" >
+        <action
+            app:popUpTo="@id/main_nav_graph"
+            app:popUpToInclusive="true"
+            android:id="@+id/action_settingsFragment_to_signInFragment"
+            app:destination="@id/signInFragment" />
     </fragment>
 </navigation>

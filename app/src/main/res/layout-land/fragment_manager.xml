@@ -7,14 +7,6 @@
     android:padding="16dp"
     tools:context=".ui.manager.ManagerFragment">
 
-    <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/submitBtn"
-        style="@style/BigBtn"
-        android:text="@string/submit"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
-
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="0dp"
@@ -23,7 +15,7 @@
         android:overScrollMode="never"
         android:padding="10dp"
         android:scrollbarThumbVertical="@color/white"
-        app:layout_constraintBottom_toTopOf="@id/submitBtn"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -88,23 +80,57 @@
                 </com.google.android.material.textfield.TextInputLayout>
             </LinearLayout>
 
-            <LinearLayout
+            <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
                 android:orientation="horizontal"
                 android:weightSum="2">
+
+                <LinearLayout
+                    android:id="@+id/btnLayout"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:orientation="horizontal"
+                    android:weightSum="2"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="@+id/guideline3">
+
+                    <androidx.appcompat.widget.AppCompatButton
+                        android:id="@+id/newTransactionBtn"
+                        style="@style/halfScreenBtn"
+                        android:layout_marginEnd="10dp"
+                        android:layout_marginBottom="10dp"
+                        android:layout_weight="1"
+                        android:backgroundTint="@color/gray"
+                        android:text="@string/new_transaction"
+                        android:textSize="16sp" />
+
+                    <androidx.appcompat.widget.AppCompatButton
+                        android:id="@+id/submitBtn"
+                        style="@style/halfScreenBtn"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginBottom="10dp"
+                        android:layout_weight="1"
+                        android:text="@string/submit"
+                        android:textSize="16sp" />
+                </LinearLayout>
 
                 <RadioGroup
                     android:id="@+id/radioGroup"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="40dp"
-                    android:layout_marginEnd="10dp"
+                    android:layout_marginStart="10dp"
                     android:layout_weight="1"
                     android:background="@drawable/bg_switcher"
                     android:orientation="horizontal"
                     android:padding="1dp"
-                    android:weightSum="2">
+                    android:weightSum="2"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="@+id/guideline3"
+                    app:layout_constraintTop_toTopOf="parent">
 
                     <RadioButton
                         android:id="@+id/income"
@@ -131,18 +157,27 @@
 
                 <DatePicker
                     android:id="@+id/calendar"
-                    android:datePickerMode="spinner"
-                    android:calendarViewShown="false"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="10dp"
-                    android:layout_marginTop="40dp"
                     android:layout_weight="1"
+                    android:layout_marginEnd="10dp"
                     android:background="@drawable/bg_corners_white"
+                    android:calendarViewShown="false"
+                    android:datePickerMode="spinner"
                     android:dateTextAppearance="@style/CalenderViewDateCustomText"
                     android:theme="@style/CalenderViewCustom"
-                    android:weekDayTextAppearance="@style/CalenderViewWeekCustomText" />
-            </LinearLayout>
+                    android:weekDayTextAppearance="@style/CalenderViewWeekCustomText"
+                    app:layout_constraintEnd_toStartOf="@+id/guideline3"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <androidx.constraintlayout.widget.Guideline
+                    android:id="@+id/guideline3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    app:layout_constraintGuide_percent="0.5" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
         </LinearLayout>
 

@@ -6,6 +6,8 @@ import android.text.TextWatcher
 import android.view.View
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.Navigation
+import androidx.navigation.fragment.findNavController
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.example.smartmoney.R
 import com.example.smartmoney.common.base.BaseFragment
@@ -13,6 +15,7 @@ import com.example.smartmoney.common.util.bottomErrorMessage
 import com.example.smartmoney.common.util.removeBottomErrorMessage
 import com.example.smartmoney.databinding.FragmentSignInBinding
 import com.example.smartmoney.ui.auth.AuthViewModel
+import com.example.smartmoney.ui.splashScreen.SplashScreenFragmentDirections
 import com.google.firebase.auth.FirebaseAuth
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Job
@@ -31,8 +34,10 @@ class SignInFragment : BaseFragment(R.layout.fragment_sign_in) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        menuVisibility(false)
+
         binding.btnOpenSignUp.setOnClickListener {
-            navigate(R.id.action_signInFragment_to_signUpFragment)
+            Navigation.findNavController(requireView()).navigate(R.id.action_signInFragment_to_signUpFragment)
         }
 
         binding.root.setOnClickListener {
@@ -114,8 +119,9 @@ class SignInFragment : BaseFragment(R.layout.fragment_sign_in) {
 
         mAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener { task ->
             if (task.isSuccessful) {
+                binding.submitBtn.isClickable = false
                 viewModel.setRememberUser(binding.remember.isChecked)
-                navigate(R.id.action_signInFragment_to_historyFragment)
+                Navigation.findNavController(requireView()).navigate(R.id.action_signInFragment_to_historyFragment)
 
             } else {
                 snackBar(requireView(), "Login Failed! Check your data and try again")

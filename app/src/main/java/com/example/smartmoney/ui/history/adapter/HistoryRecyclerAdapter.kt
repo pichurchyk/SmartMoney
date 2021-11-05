@@ -74,7 +74,6 @@ class HistoryRecyclerAdapter(private val openDetailsListener: OpenDetails) : Lis
         if (currentItem != null) {
             holder.bind(currentItem)
             currentAdapterPosition = position
-            Log.d("111", "$currentAdapterPosition")
         }
     }
 }

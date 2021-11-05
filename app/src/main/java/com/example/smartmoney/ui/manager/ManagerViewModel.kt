@@ -19,7 +19,7 @@ class ManagerViewModel @Inject constructor(private val repository: RepositoryImp
     var checkedTypeId: Int? = null
 
     fun pushTransactionToFirebase() {
-        val userEmail = repository.getCurrentUser().email
+        val userEmail = repository.getCurrentUser()?.email
         transaction.userEmail = userEmail
 
         if (transaction.id == null) {

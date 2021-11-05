@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
     <style name="BigInputField" parent="Widget.MaterialComponents.TextInputLayout.FilledBox">
         <item name="fontFamily">@font/poppins</item>
         <item name="android:textSize">18sp</item>
@@ -20,8 +21,40 @@
         <item name="android:background">@drawable/bg_round_btn</item>
     </style>
 
-    <style name="halfScreenBtn" parent="Widget.AppCompat.Button">
+    <style name="BigBtnRed" parent="Widget.AppCompat.Button">
         <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_marginStart">30dp</item>
+        <item name="android:layout_marginEnd">30dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:fontFamily">@font/poppins_medium</item>
+        <item name="android:letterSpacing">0.11</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:background">@drawable/bg_history_list_item_delete</item>
+    </style>
+
+    <style name="SettingSectionTitle" parent="Widget.AppCompat.TextView">
+        <item name="android:fontFamily">@font/poppins</item>
+        <item name="android:textSize">12sp</item>
+        <item name="android:textColor">@color/dark_gray</item>
+        <item name="android:gravity">center</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_marginEnd">10dp</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+
+    <style name="SettingSectionText" parent="Widget.AppCompat.TextView">
+        <item name="android:fontFamily">@font/poppins_medium</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:textColor">@color/black</item>
+        <item name="android:gravity">center</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+
+    <style name="halfScreenBtn" parent="Widget.AppCompat.Button">
+        <item name="android:layout_width">0dp</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:fontFamily">@font/poppins_medium</item>
         <item name="android:letterSpacing">0.11</item>
@@ -50,5 +83,21 @@
         <item name="android:fadeScrollbars">false</item>
         <item name="android:scrollbarThumbVertical">@drawable/thumb</item>
         <item name="android:scrollbarTrackVertical">@drawable/scrollbar</item>
+    </style>
+
+    <declare-styleable name="CustomSettingsSection">
+        <attr name="title" format="string" />
+        <attr name="text" format="string" />
+        <attr name="isEditable" format="boolean" />
+    </declare-styleable>
+
+    <declare-styleable name="CustomHeader">
+        <attr name="headerTitle" format="string" />
+        <attr name="headerPageName" format="string" />
+    </declare-styleable>
+
+    <style name="popup_animation">
+        <item name="android:windowEnterAnimation">@anim/popup_show</item>
+        <item name="android:windowExitAnimation">@anim/popup_hide</item>
     </style>
 </resources>

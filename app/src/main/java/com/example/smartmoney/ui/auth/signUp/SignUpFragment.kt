@@ -8,6 +8,7 @@ import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.Navigation
+import androidx.navigation.fragment.findNavController
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.example.smartmoney.R
 import com.example.smartmoney.common.base.BaseFragment
@@ -130,7 +131,8 @@ class SignUpFragment : BaseFragment(R.layout.fragment_sign_up) {
 
                 if (task.isSuccessful) {
                     snackBar(requireView(), "Registered with $email")
-                    navigate(R.id.action_signUpFragment_to_historyFragment)
+                    val action = SignUpFragmentDirections.actionSignUpFragmentToHistoryFragment()
+                    findNavController().navigate(action)
                 }
             }
     }

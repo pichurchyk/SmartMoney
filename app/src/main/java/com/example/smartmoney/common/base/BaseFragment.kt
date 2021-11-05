@@ -9,6 +9,7 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModel
 import androidx.navigation.Navigation
+import androidx.navigation.fragment.findNavController
 import com.afollestad.materialdialogs.MaterialDialog
 import com.example.smartmoney.R
 import com.example.smartmoney.common.util.dialogBuilder
@@ -31,10 +32,6 @@ abstract class BaseFragment(@LayoutRes layoutId: Int) : Fragment(layoutId) {
 
     fun dialogBuilder(title: Int): MaterialDialog {
         return requireContext().dialogBuilder(viewLifecycleOwner, title)
-    }
-
-    fun navigate(actionId: Int) {
-        Navigation.findNavController(requireView()).navigate(actionId)
     }
 
     fun clearFocus() {

@@ -4,36 +4,19 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="16dp"
+    android:paddingStart="16dp"
+    android:paddingEnd="16dp"
+    android:paddingTop="16dp"
+    android:paddingBottom="50dp"
     tools:context=".ui.manager.ManagerFragment">
 
-    <LinearLayout
-        android:id="@+id/titleWrapper"
+    <com.example.smartmoney.common.CustomHeader
+        android:id="@+id/header"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center"
-        android:orientation="vertical"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/poppins"
-            android:text="@string/manager_title"
-            android:textColor="@color/black"
-            android:textSize="18sp" />
-
-        <TextView
-            android:id="@+id/title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/poppins_bold"
-            android:text="@string/transaction_manager"
-            android:textColor="@color/black"
-            android:textSize="20sp" />
-    </LinearLayout>
+        app:layout_constraintTop_toTopOf="parent"
+        app:headerTitle="@string/manager_title"
+        app:headerPageName="@string/manager"/>
 
     <LinearLayout
         android:id="@+id/btnLayout"
@@ -75,7 +58,7 @@
         app:layout_constraintBottom_toTopOf="@id/btnLayout"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/titleWrapper">
+        app:layout_constraintTop_toBottomOf="@+id/header">
 
         <LinearLayout
             android:layout_width="match_parent"
