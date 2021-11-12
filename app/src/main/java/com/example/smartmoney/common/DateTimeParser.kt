@@ -28,6 +28,10 @@ class DateTimeParser() {
         return dateInMillis
     }
 
+    fun getDayFromDate(date: Long): Int {
+        return DateTime(date).dayOfMonth
+    }
+
     fun setTimeInMills(dayOfMonth: Int, month: Int, year: Int) {
         val calendar = Calendar.getInstance()
         calendar.set(Calendar.DAY_OF_MONTH, dayOfMonth)

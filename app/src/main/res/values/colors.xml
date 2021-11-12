@@ -12,6 +12,8 @@
     <color name="gray">#ADA4A5</color>
     <color name="light_gray">#DDDADA</color>
     <color name="blue">#92A3FD</color>
+    <color name="blue_dark">#6379F3</color>
+    <color name="green">#27AF4D</color>
     <color name="blue_light">#9DCEFF</color>
     <color name="input_gray">#F7F8F8</color>
     <color name="red">#D53636</color>

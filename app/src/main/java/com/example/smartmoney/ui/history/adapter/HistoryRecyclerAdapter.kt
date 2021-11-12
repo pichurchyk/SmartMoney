@@ -40,6 +40,8 @@ class HistoryRecyclerAdapter(private val openDetailsListener: OpenDetails) : Lis
 
             if (transaction.type.equals("Expense")) {
                 binding.root.setBackgroundResource(R.drawable.bg_history_list_item_dark)
+            } else {
+                binding.root.setBackgroundResource(R.drawable.bg_history_list_item)
             }
         }
     }

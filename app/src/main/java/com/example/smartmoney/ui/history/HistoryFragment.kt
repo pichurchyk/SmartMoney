@@ -1,7 +1,6 @@
 package com.example.smartmoney.ui.history
 
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.widget.TextView
 import androidx.fragment.app.viewModels
@@ -16,7 +15,6 @@ import com.example.smartmoney.R
 import com.example.smartmoney.common.base.BaseFragment
 import com.example.smartmoney.databinding.FragmentHistoryBinding
 import com.example.smartmoney.ui.history.adapter.HistoryRecyclerAdapter
-import com.google.firebase.auth.FirebaseUser
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.Job
@@ -47,21 +45,29 @@ class HistoryFragment : BaseFragment(R.layout.fragment_history), HistoryRecycler
 
         setupRecyclerView()
         setupObservers()
+        setupListeners()
     }
 
+    private fun setupListeners() {
+        binding.tryAgainBtn?.setOnClickListener {
+            val newJob = viewModel.setListener
+            newJob.start()
+        }
+    }
 
     private fun setupObservers() {
         recyclerViewObserver = lifecycleScope.launch {
-            viewModel.setListener.start()
-            viewModel.observeTransactions.start()
+            val setListenerJob = viewModel.setListener
+            setListenerJob.start()
+            val setObserveTransactions = viewModel.observeTransactions
+            setObserveTransactions.start()
             viewModel.transactions.collect {
                 if (it != null) {
                     adapter!!.submitList(it)
                     viewModel.getTotalAmount(it)
                     transactionsCount = it.size
                     binding.loader.visibility = View.GONE
-                } else {
-                    Log.d("111", "EMPTY LIST")
+                    binding.chart?.setStats(it)
                 }
             }
         }
@@ -75,8 +81,8 @@ class HistoryFragment : BaseFragment(R.layout.fragment_history), HistoryRecycler
             viewModel.observerListenerDetaching.start()
             viewModel.isListenerDetached.collect {
                 if (it) {
-                    binding.loader.visibility = View.GONE
-                    binding.tryAgainBtn.visibility = View.VISIBLE
+                    binding.loader?.visibility = View.GONE
+                    binding.tryAgainBtn?.visibility = View.VISIBLE
                 }
             }
         }

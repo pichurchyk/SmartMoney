@@ -33,9 +33,15 @@ class RepositoryImpl @Inject constructor(
     fun getRememberUser(): Boolean = sharedPref.getRememberUser()
 
     fun pushTransactionToFirebase(transaction: SingleTransaction) {
-        firebaseDatabase.reference.child("transactions").child(transaction.id!!)
+        firebaseDatabase.reference.child(getCurrentUser()!!.uid).child("transactions")
+            .child(transaction.id!!)
             .setValue(transaction)
     }
+
+    val _userLimit = MutableStateFlow(0.0)
+    val userLimit = _userLimit.asStateFlow()
+
+    var userTotalAmount = 0.0
 
     val _transactions = MutableStateFlow<List<SingleTransaction>?>(null)
     val transactionFlow = _transactions.asStateFlow()
@@ -43,24 +49,46 @@ class RepositoryImpl @Inject constructor(
     val _isListenerDetached = MutableStateFlow(false)
     val isListenerDetached = _isListenerDetached.asStateFlow()
 
-    private val transactionsListener = object : ValueEventListener {
+    private val firebaseListener = object : ValueEventListener {
         override fun onDataChange(snapshot: DataSnapshot) {
             if (FirebaseAuth.getInstance().currentUser != null) {
                 val transactionsList = mutableListOf<SingleTransaction>()
-                snapshot.children.map { snapshotItem ->
-                    snapshotItem.children
-                        .filter {
-                            it.getValue(SingleTransaction::class.java)?.userEmail.equals(
-                                getCurrentUser()?.email
-                            )
-                        }
-                        .sortedBy { it.getValue(SingleTransaction::class.java)!!.date }
-                        .forEach {
-                            val transaction = it.getValue(SingleTransaction::class.java)
-                            transactionsList.add(transaction!!)
-                        }
-                    _transactions.value = transactionsList
-                    _isListenerDetached.value = false
+
+                snapshot.children.map { snapshotList ->
+                    snapshotList.children.map { snapshotItem ->
+                        snapshotItem.children
+
+                            .filter {
+                                it.key != "total" && it.key != "limit" &&
+                                        it.getValue(SingleTransaction::class.java)?.userEmail.equals(getCurrentUser()?.email) }
+                            .sortedBy { it.getValue(SingleTransaction::class.java)!!.date }
+                            .forEach {
+                                val transaction = it.getValue(SingleTransaction::class.java)
+                                transactionsList.add(transaction!!)
+                            }
+
+                        userTotalAmount = transactionsList.sumOf { transaction ->
+                            val amountToBigDecimal = transaction.total!!.toBigDecimal()
+                            if (transaction.type.equals("Expense")) {
+                                return@sumOf -(amountToBigDecimal)
+                            }
+                            return@sumOf amountToBigDecimal
+                        }.toDouble()
+
+                        setTotalToFirebase(userTotalAmount)
+
+                        _transactions.value = transactionsList
+                        _isListenerDetached.value = false
+                    }
+                }
+
+                snapshot.children.map { snapshotList ->
+                    snapshotList.children.map { snapshotItem ->
+                        snapshotItem.children
+                            .filter { it.key == "limit" }
+                            .map { Log.d("111", "ALALALALA")
+                                _userLimit.value = it.value.toString().toDouble() }
+                    }
                 }
             }
         }
@@ -71,15 +99,32 @@ class RepositoryImpl @Inject constructor(
     }
 
     val setListener = GlobalScope.launch(Dispatchers.IO) {
-        firebaseDatabase.reference.addValueEventListener(transactionsListener)
+        Log.d("111", "Listener started")
+        firebaseDatabase.reference.addValueEventListener(firebaseListener)
         delay(10000)
         if (_transactions.value == null) {
+            firebaseDatabase.reference.removeEventListener(firebaseListener)
+            Log.d("111", "Listener removed")
             _isListenerDetached.value = true
         }
     }
 
     fun deleteFromFirebase(childId: String) {
-        firebaseDatabase.reference.child("transactions").child(childId).removeValue()
+        firebaseDatabase.reference.child(getCurrentUser()!!.uid).child("transactions")
+            .child(childId)
+            .removeValue()
+    }
+
+    fun setLimitToFirebase(limit: Double) {
+        firebaseDatabase.reference.child(getCurrentUser()!!.uid).child("transactions")
+            .child("limit")
+            .setValue(limit)
+    }
+
+    fun setTotalToFirebase(total: Double) {
+        firebaseDatabase.reference.child(getCurrentUser()!!.uid).child("transactions")
+            .child("total")
+            .setValue(total)
     }
 
     fun updatePassword(password: String): String {

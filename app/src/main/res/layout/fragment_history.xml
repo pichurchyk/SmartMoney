@@ -10,16 +10,14 @@
 
     <ImageButton
         android:id="@+id/tryAgainBtn"
-        android:layout_width="0dp"
+        android:layout_width="match_parent"
         android:layout_height="0dp"
         android:background="@android:color/transparent"
-        android:src="@drawable/ic_try_again"
-        android:text="Try again"
-        android:visibility="gone"
         android:elevation="10dp"
+        android:src="@drawable/ic_try_again"
+        android:text="@string/try_again"
+        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/historyList" />
 
     <ProgressBar
@@ -30,6 +28,7 @@
         android:indeterminateDrawable="@drawable/custom_progress_bar"
         android:indeterminateTint="@color/blue"
         android:padding="180dp"
+        app:layout_constraintBottom_toBottomOf="@+id/tryAgainBtn"
         app:layout_constraintTop_toTopOf="@+id/historyList" />
 
     <com.example.smartmoney.common.CustomHeader
@@ -41,14 +40,28 @@
         app:headerTitle="@string/hello"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/chartWrapper"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:paddingStart="16dp"
+        android:paddingEnd="16dp"
+        app:layout_constraintBottom_toTopOf="@+id/totalWrapper"
+        app:layout_constraintTop_toTopOf="@+id/guideline17">
+
+        <com.example.smartmoney.common.CustomChart
+            android:id="@+id/chart"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
     <LinearLayout
-        android:id="@+id/linearLayout2"
+        android:id="@+id/totalWrapper"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center"
-        android:orientation="vertical"
-        app:layout_constraintBottom_toTopOf="@+id/historyList"
-        app:layout_constraintTop_toBottomOf="@+id/header">
+        android:gravity="end"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toTopOf="@+id/historyList">
 
         <TextView
             android:layout_width="wrap_content"
@@ -71,16 +84,29 @@
             android:textSize="24sp" />
     </LinearLayout>
 
-
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/historyList"
         style="@style/scrollbar_style"
         android:layout_width="match_parent"
-        android:layout_height="400dp"
-        android:layout_marginStart="-16dp"
+        android:layout_height="0dp"
         android:scrollbars="vertical"
         android:translationX="16dp"
         android:verticalScrollbarPosition="left"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/guideline4"
         tools:listitem="@layout/fragment_history_list_item" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline17"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.17" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.55" />
 </androidx.constraintlayout.widget.ConstraintLayout>

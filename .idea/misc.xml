@@ -46,6 +46,7 @@
         <entry key="..\:/Users/User/SmartMoney/app/src/main/res/drawable/ic_history.xml" value="0.3828125" />
         <entry key="..\:/Users/User/SmartMoney/app/src/main/res/drawable/ic_income.xml" value="0.3828125" />
         <entry key="..\:/Users/User/SmartMoney/app/src/main/res/drawable/ic_loader.xml" value="0.3828125" />
+        <entry key="..\:/Users/User/SmartMoney/app/src/main/res/drawable/ic_settings.xml" value="0.3828125" />
         <entry key="..\:/Users/User/SmartMoney/app/src/main/res/drawable/ic_show.xml" value="0.3828125" />
         <entry key="..\:/Users/User/SmartMoney/app/src/main/res/drawable/ic_try_again.xml" value="0.3828125" />
         <entry key="..\:/Users/User/SmartMoney/app/src/main/res/drawable/img_bg_splash.xml" value="0.3828125" />
@@ -82,6 +83,7 @@
         <entry key="..\:/Users/User/SmartMoney/app/src/main/res/layout/fragment_sign_in.xml" value="0.33" />
         <entry key="..\:/Users/User/SmartMoney/app/src/main/res/layout/fragment_sign_up.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/User/SmartMoney/app/src/main/res/layout/fragment_splash_screen.xml" value="0.33" />
+        <entry key="..\:/Users/User/SmartMoney/app/src/main/res/layout/fragment_stats.xml" value="0.33" />
         <entry key="..\:/Users/User/SmartMoney/app/src/main/res/layout/widget_auth_input.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/User/SmartMoney/app/src/main/res/layout/widget_input_error.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/User/SmartMoney/app/src/main/res/layout/widget_settings_hint.xml" value="0.36666666666666664" />

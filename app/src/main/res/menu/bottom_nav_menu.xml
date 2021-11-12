@@ -13,6 +13,12 @@
         android:title="" />
 
     <item
+        android:id="@+id/statsFragment"
+        android:enabled="true"
+        android:title=""
+        android:icon="@drawable/ic_stats"/>
+
+    <item
         android:id="@+id/settingsFragment"
         android:enabled="true"
         android:icon="@drawable/ic_settings"

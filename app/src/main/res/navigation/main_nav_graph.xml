@@ -86,4 +86,9 @@
             android:id="@+id/action_settingsFragment_to_signInFragment"
             app:destination="@id/signInFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/statsFragment"
+        android:name="com.example.smartmoney.ui.stats.StatsFragment"
+        android:label="fragment_stats"
+        tools:layout="@layout/fragment_stats" />
 </navigation>
