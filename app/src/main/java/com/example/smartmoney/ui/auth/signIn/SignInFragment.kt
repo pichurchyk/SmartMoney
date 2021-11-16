@@ -44,6 +44,10 @@ class SignInFragment : BaseFragment(R.layout.fragment_sign_in) {
             clearFocus()
         }
 
+        binding.forgetPasswordBtn?.setOnClickListener {
+            binding.email.setText("")
+        }
+
         binding.submitBtn.setOnClickListener {
             if (emailValidator == null) {
                 viewModel.isEmailValid(binding.email.text.toString())

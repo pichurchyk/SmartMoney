@@ -17,9 +17,11 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
+import java.lang.IllegalStateException
 import javax.inject.Inject
+import javax.inject.Singleton
 
-
+@Singleton
 class RepositoryImpl @Inject constructor(
     private val sharedPref: SharedPreferencesSource,
     private val firebaseDatabase: FirebaseDatabase,
@@ -37,6 +39,9 @@ class RepositoryImpl @Inject constructor(
             .child(transaction.id!!)
             .setValue(transaction)
     }
+
+    val _userSpent = MutableStateFlow(0.0)
+    val userSpent = _userSpent.asStateFlow()
 
     val _userLimit = MutableStateFlow(0.0)
     val userLimit = _userLimit.asStateFlow()
@@ -57,28 +62,25 @@ class RepositoryImpl @Inject constructor(
                 snapshot.children.map { snapshotList ->
                     snapshotList.children.map { snapshotItem ->
                         snapshotItem.children
-
                             .filter {
                                 it.key != "total" && it.key != "limit" &&
-                                        it.getValue(SingleTransaction::class.java)?.userEmail.equals(getCurrentUser()?.email) }
+                                        it.getValue(SingleTransaction::class.java)?.userEmail.equals(
+                                            getCurrentUser()?.email
+                                        )
+                            }
                             .sortedBy { it.getValue(SingleTransaction::class.java)!!.date }
+                            .reversed()
                             .forEach {
                                 val transaction = it.getValue(SingleTransaction::class.java)
                                 transactionsList.add(transaction!!)
                             }
 
-                        userTotalAmount = transactionsList.sumOf { transaction ->
-                            val amountToBigDecimal = transaction.total!!.toBigDecimal()
-                            if (transaction.type.equals("Expense")) {
-                                return@sumOf -(amountToBigDecimal)
-                            }
-                            return@sumOf amountToBigDecimal
-                        }.toDouble()
-
-                        setTotalToFirebase(userTotalAmount)
-
                         _transactions.value = transactionsList
                         _isListenerDetached.value = false
+
+                        if (transactionsList.size == 0) {
+                            setLimitToFirebase(0.0)
+                        }
                     }
                 }
 
@@ -86,10 +88,30 @@ class RepositoryImpl @Inject constructor(
                     snapshotList.children.map { snapshotItem ->
                         snapshotItem.children
                             .filter { it.key == "limit" }
-                            .map { Log.d("111", "ALALALALA")
-                                _userLimit.value = it.value.toString().toDouble() }
+                            .map {
+                                _userLimit.value = it.value.toString().toDouble()
+                            }
                     }
                 }
+
+                userTotalAmount = transactionsList.sumOf { transaction ->
+                    val amountToBigDecimal = transaction.total!!.toBigDecimal()
+                    if (transaction.type.equals("Expense")) {
+                        return@sumOf -(amountToBigDecimal)
+                    }
+                    return@sumOf amountToBigDecimal
+                }.toDouble()
+
+                setTotalToFirebase(userTotalAmount)
+
+                _userSpent.value = transactionsList.filter { it.type == "Expense" }
+                    .sumOf { it.total!!.toDouble() }
+
+                if (_userLimit.value > userTotalAmount) {
+                    setLimitToFirebase(0.0)
+                }
+
+                Log.d("111", "REPO")
             }
         }
 

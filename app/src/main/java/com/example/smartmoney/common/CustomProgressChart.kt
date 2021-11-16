@@ -3,7 +3,6 @@ package com.example.smartmoney.common
 import android.content.Context
 import android.graphics.Canvas
 import android.graphics.Paint
-import android.graphics.Path
 import android.util.AttributeSet
 import android.view.View
 import com.example.smartmoney.R
@@ -38,6 +37,7 @@ class CustomProgressChart(context: Context, attrs: AttributeSet) : View(context,
     }
 
     override fun onDraw(canvas: Canvas?) {
+
         super.onDraw(canvas)
 
         val percentWidth = width / 10f
@@ -49,7 +49,16 @@ class CustomProgressChart(context: Context, attrs: AttributeSet) : View(context,
         val drawSpent = percentWidth * spentPercent / 10f
 
         canvas?.drawRoundRect(0f, 0f, width.toFloat(), height / 3f, 30f, 30f, totalPaint)
+
+        if (drawPlan <= drawSpent) {
+            spentPaint.color = context.getColor(R.color.red_transparent)
+
+        } else {
+            spentPaint.color = context.getColor(R.color.blue_dark)
+        }
+
         canvas?.drawRoundRect(0f, 0f, drawPlan, height / 3f, 30f, 30f, planPaint)
+
         canvas?.drawRoundRect(0f, 0f, drawSpent, height / 3f, 30f, 30f, spentPaint)
 
         canvas?.drawCircle(30f, height - 30f, 30f, spentPaint)

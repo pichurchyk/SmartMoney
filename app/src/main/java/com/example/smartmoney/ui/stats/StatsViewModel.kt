@@ -1,6 +1,5 @@
 package com.example.smartmoney.ui.stats
 
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.data.repository.RepositoryImpl
@@ -17,8 +16,10 @@ class StatsViewModel @Inject constructor(val repository: RepositoryImpl) : ViewM
     val _userLimit = MutableStateFlow(repository.userLimit.value)
     val userLimit = _userLimit.asStateFlow()
 
-     fun getUserTotalAmount() : Double{
-         Log.d("111", repository.userTotalAmount.toString())
+    private val _userSpent = MutableStateFlow(repository.userSpent.value)
+    val userSpent = _userSpent.asStateFlow()
+
+    fun getUserTotalAmount(): Double {
         return repository.userTotalAmount
     }
 
@@ -28,6 +29,14 @@ class StatsViewModel @Inject constructor(val repository: RepositoryImpl) : ViewM
                 repository.setLimitToFirebase(it)
             }
         }
+    }
+
+    fun convertLimitToPercents(): String {
+        val total = getUserTotalAmount()
+        val percentsOfTotal = userLimit.value / total * 100
+        val roundPercent = String.format("%.1f", percentsOfTotal)
+
+        return if (total != 0.0) "$roundPercent % of $total" else "Not enough data"
     }
 
     init {

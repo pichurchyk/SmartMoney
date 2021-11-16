@@ -24,29 +24,36 @@ class StatsFragment : BaseFragment(R.layout.fragment_stats) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        Log.d("111", viewModel.getUserTotalAmount().toString())
+        viewModel.userLimit.value.let {
+            if (it != 0.0) {
+                binding.limitInput.setText(it.toString())
+            }
+        }
 
         setupObservers()
         setupListeners()
     }
 
     private fun setupObservers() {
-//        lifecycleScope.launch {
-//            viewModel.userTotalAmount.collect {
-//                binding.chart.setData(it.toFloat(), it.toFloat() / 1.5f, it.toFloat() / 4f)
-//            }
-//        }
+            lifecycleScope.launch {
+                viewModel.userLimit.collect {
+                    val total = viewModel.getUserTotalAmount()
+                    val spent = viewModel.userSpent.value
 
-        lifecycleScope.launch {
-            viewModel.userLimit.collect {
-                val total = viewModel.getUserTotalAmount()
-                val percentsOfTotal = it / total * 100
-                val roundPercent = String.format("%.1f", percentsOfTotal)
-
-                binding.limitPercentOfTotal.text = "$roundPercent % of $total"
-                binding.chart.setData(total.toFloat(), it.toFloat(), it.toFloat() / 4f)
+                    binding.limitPercentOfTotal.text = viewModel.convertLimitToPercents()
+                    binding.chart.setData(total.toFloat(), it.toFloat(), spent.toFloat())
+                }
             }
-        }
+
+            lifecycleScope.launch {
+                viewModel.userSpent.collect {
+                    val total = viewModel.getUserTotalAmount()
+                    val limit = viewModel.userLimit.value
+
+                    binding.chart.setData(total.toFloat(), limit.toFloat(), it.toFloat())
+                }
+            }
+
     }
 
     private fun setupListeners() {
@@ -62,9 +69,14 @@ class StatsFragment : BaseFragment(R.layout.fragment_stats) {
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
 
             override fun afterTextChanged(s: Editable?) {
-                val text = s.toString()
-                if (text.isNotEmpty() && viewModel.getUserTotalAmount() > text.toDouble()) {
-                    viewModel._userLimit.value = text.toDouble()
+
+                try {
+                    val text = s.toString()
+                    if (text.isNotEmpty() && viewModel.getUserTotalAmount() > text.toDouble()) {
+                        viewModel._userLimit.value = text.toDouble()
+                    }
+                } catch (e : IllegalStateException) {
+                    Log.d("111", e.message.toString())
                 }
             }
         })

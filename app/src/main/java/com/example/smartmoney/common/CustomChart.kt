@@ -4,7 +4,6 @@ import android.content.Context
 import android.graphics.Canvas
 import android.graphics.Paint
 import android.util.AttributeSet
-import android.util.Log
 import android.view.MotionEvent
 import android.view.View
 import com.example.domain.model.SingleTransaction
@@ -56,7 +55,7 @@ class CustomChart(context: Context, attr: AttributeSet) : View(context, attr) {
     private var stats: List<SingleTransaction>? = null
 
     fun setStats(transactions: List<SingleTransaction>) {
-        stats = transactions.takeLast(10)
+        stats = transactions.takeLast(10).reversed()
         invalidate()
     }
 
@@ -74,7 +73,6 @@ class CustomChart(context: Context, attr: AttributeSet) : View(context, attr) {
             val transactionsSum = stats!!.sumOf { it.total!!.toInt() }
             val pointsHeight =
                 (height.toFloat() / (transactionsSum)) - (height.toFloat() / (transactionsSum)) / 2.5f
-            Log.d("111", pointsHeight.toString())
             var prevPointX = pointsWidth / 2f
 
             var sum = 0f
